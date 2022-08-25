@@ -1,0 +1,1 @@
+web: gunicorn --pythonpath hackathon hackathon.wsgi --log-file -

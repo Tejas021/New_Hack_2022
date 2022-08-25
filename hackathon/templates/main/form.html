@@ -1,0 +1,1055 @@
+{%extends 'main/base.html'%}
+{%load static%}
+<head>
+    <title>{% block title %}Registration form{% endblock %}</title>
+</head>
+
+{%block body%}
+<style>
+    .form-control {
+        text-transform: none !important;
+    }
+</style>
+<!-- Form Start -->
+{% for message in messages %}
+<div class="alert {{ message.tags }} alert-dismissible" role="alert">
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+    </button>
+    {{ message }}
+</div>
+{% endfor %}
+
+<section id="form-map" class="section-padding">
+
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-12">
+
+                <div class="section-title-header text-center" style="margin-top: 5%;">
+                    <h1 class="section-title wow fadeInUp animated" data-wow-delay="0.2s"
+                        style="visibility: visible;-webkit-animation-delay: 0.2s; -moz-animation-delay: 0.2s; animation-delay: 0.2s;">
+                        Sample Abstract</h1>
+                    <p class="wow fadeInDown animated h5" data-wow-delay="0.2s"
+                        style="visibility: visible;-webkit-animation-delay: 0.2s; -moz-animation-delay: 0.2s; animation-delay: 0.2s;">
+                        Check out the sample abstract <a href="" type="button" class="" data-toggle="modal"
+                            data-target="#abstractModal"> here </a></p>
+                </div>
+            </div>
+
+            <!-- Sample Abstract Model -->
+            <div class="modal fade" id="abstractModal">
+                <div class="modal-dialog" style="margin-top: 100px">
+                    <div class="modal-content">
+
+                        <!-- Modal Header -->
+                        <div class="modal-header">
+                            <!-- <h4 class="modal-title">Sample Abstract</h4> -->
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+
+                        <!-- Modal body -->
+                        <div class="modal-body">
+                            <p> <b> Problem statement:</b> Solving the problem of keeping track of student’s attendance,
+                                scores and
+                                other important information, deriving meaningful results, insights from the data by
+                                building a
+                                tech solution for the same.</p>
+
+                            <p><b>Abstract:</b> The solution would be an android application that would perform
+                                automation
+                                operations such as sending automated text to parents on low attendance, calculating
+                                scores,
+                                submitting the results to Placement cell, identifying their weak areas if scored low on
+                                a test, etc.</p>
+
+                            <!-- <p><b>Domain:-</b> App Development & Web Development</p>
+
+          <p><b>Features:-</b> Analytics, Intuitive UI, Real time notiications, Student Dashboard, Authentication & Authorization</p> -->
+
+                            <p><b>Tech Stack:-</b> Java, MySql, node.js, AWS, FCM, Git, Github</p>
+                        </div>
+
+                        <!-- Modal footer -->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="col-12">
+
+                <div class="section-title-header text-center" style="margin-top: 2%;">
+                    <h1 class="section-title wow fadeInUp animated" data-wow-delay="0.2s"
+                        style="visibility: visible;-webkit-animation-delay: 0.2s; -moz-animation-delay: 0.2s; animation-delay: 0.2s;">
+                        Registration</h1>
+                    <!--<p class="wow fadeInDown animated" data-wow-delay="0.2s" style="visibility: visible;-webkit-animation-delay: 0.2s; -moz-animation-delay: 0.2s; animation-delay: 0.2s;">Global Grand Event on Digital Design</p>-->
+                </div>
+            </div>
+            <div class="col-lg-7 col-md-12 col-xs-12">
+                <div class="container-form wow fadeInLeft animated" data-wow-delay="0.2s"
+                    style="visibility: visible;-webkit-animation-delay: 0.2s; -moz-animation-delay: 0.2s; animation-delay: 0.2s;">
+                    <div class="form-wrapper">
+                        <form role="form" method="post" id="contactForm" name="contact-form">
+                            {%csrf_token%}
+                            <p class="text-danger text-center">
+
+                                {%if form.non_field_errors%}
+                                {%for err in form.non_field_errors%}
+                                {{err}}
+                                {%endfor%}
+                                {%endif%}
+
+                            </p>
+                            <div class="row">
+                                <div class="col-md-12 form-line">
+                                    <div class="form-group">
+                                        <label class="form-heading" for="id_problem_statement_1">MONTHLY EXPENSE
+                                            ANALYSIS FROM ALL TYPES OF BILLS<span style="color:red">*</span></label>
+                                        {% comment %} <input type="text" class="form-control"
+                                            id="id_problem_statement_1" name="problem_statement_1"
+                                            placeholder="Problem Statement 1"
+                                            value="{{ form.problem_statement_1.value|default_if_none:''  }}" required>
+                                        {% endcomment %}
+                                        {% comment %}
+                                        <select class="form-control" id="id_problem_statement_1"
+                                            name="problem_statement_1">
+                                            <option disabled='' selected=''>Problem Statement 1</option>
+                                            {% for x,y in form.fields.problem_statement_1.choices %}
+                                            <option value="{{ x }}" {% if form.problem_statement_1.value in x %}
+                                                selected {% endif %}>{{ y }}</option>
+                                            {% endfor %}
+                                        </select>
+                                        {% endcomment %}
+                                        {% comment %} <div class="help-block with-errors">
+                                            {{form.problem_statement_1.errors.as_text}}
+                                        </div> {% endcomment %}
+
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 form-line">
+                                    <div class="form-group">
+                                        <textarea placeholder="Abstract for Problem Statement 1" name="abstract_1"
+                                            class='form-control' id="id_abstract_1" cols="30" rows="3"
+                                            required>{{ form.abstract_1.value|default_if_none:''  }}</textarea>
+                                        <div class="help-block with-errors">{{form.abstract_1.errors.as_text}}</div>
+                                    </div>
+                                </div>
+                                {% comment %}
+                                <!-- domain - 1-->
+                                <div class=" col-md-6 form-line">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="domain_1" name="domain_1"
+                                            placeholder="Domain" data-error="Enter Domain"
+                                            value="{{ form.domain_1.value|default_if_none:''  }}" required>
+                                        <div class="help-block with-errors" {{form.domain_1.errors.as_text}}></div>
+                                    </div>
+                                </div>
+                                <!-- feature -1 -->
+                                <div class=" col-md-6 form-line">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="features_1" name="features_1"
+                                            placeholder="Features" data-error="Enter Features"
+                                            value="{{ form.features_1.value|default_if_none:''  }}" required>
+                                        <div class="help-block with-errors" {{form.features_1.errors.as_text}}></div>
+                                    </div>
+                                </div> {% endcomment %}
+                                <!-- technology stack 1  -->
+                                <div class=" col-md-12 form-line">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="technology_stack_1"
+                                            name="technology_stack_1" placeholder="Technology Stack"
+                                            data-error="Enter Technology Stack"
+                                            value="{{ form.technology_stack_1.value|default_if_none:''  }}" required>
+                                        <div class="help-block with-errors" {{form.technology_stack_1.errors.as_text}}>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <select class="form-control pref1" name="problem_statement_1_preference"
+                                            id="id_preference_1" onchange>
+                                            <option selected disabled>Preference</option>
+                                            <option value=1>1</option>
+                                            <option value=2>2</option>
+                                            <option value=3>3</option>
+                                            <option value=4>4</option>
+                                            <option value=5>5</option>
+                                            {% comment %} {% for x,y in
+                                            form.fields.problem_statement_1_preference.choices %}
+                                            <option value="{{ x }}">{{ y }}</option>
+                                            {% endfor %} {% endcomment %}
+                                        </select>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 form-line">
+                                    <div class="form-group">
+                                        <hr>
+                                        <label class="form-heading" for="id_problem_statement_2">DASHBOARD FOR COVID
+                                            CARE CENTRE<span style="color:red">*</span></label>
+                                        {% comment %} <input type="text" class="form-control"
+                                            id="id_problem_statement_2" name="problem_statement_2"
+                                            placeholder="Problem Statement 2"
+                                            value="{{ form.problem_statement_2.value|default_if_none:''  }}" required>
+                                        {% endcomment %}
+                                        {% comment %}
+                                        <select class="form-control" id="id_problem_statement_2"
+                                            name="problem_statement_2">
+                                            <option disabled='' selected=''>Problem Statement 2</option>
+                                            {% for x,y in form.fields.problem_statement_2.choices %}
+                                            <option value="{{ x }}" {% if form.problem_statement_2.value in x %}
+                                                selected {% endif %}>{{ y }}</option>
+                                            {% endfor %}
+                                        </select>
+                                        {% endcomment %}
+                                        {% comment %} <div class="help-block with-errors">
+                                            {{form.problem_statement_2.errors.as_text}}
+                                        </div> {% endcomment %}
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 form-line">
+                                    <div class="form-group">
+                                        <textarea placeholder="Abstract for Problem Statement 2" name="abstract_2"
+                                            class='form-control' id="id_abstract_2" cols="30" rows="3"
+                                            required>{{ form.abstract_2.value|default_if_none:''  }}</textarea>
+                                        <div class="help-block with-errors">{{form.abstract_2.errors.as_text}}</div>
+                                    </div>
+                                </div>
+
+                                {% comment %}
+                                <!-- domain - 2-->
+                                <div class=" col-md-6 form-line">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="domain_2" name="domain_2"
+                                            placeholder="Domain" data-error="Enter Domain"
+                                            value="{{ form.domain_2.value|default_if_none:''  }}" required>
+                                        <div class="help-block with-errors" {{form.domain_2.errors.as_text}}></div>
+                                    </div>
+                                </div>
+                                <!-- feature -2-->
+                                <div class=" col-md-6 form-line">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="features_2" name="features_2"
+                                            placeholder="Features" data-error="Enter Features"
+                                            value="{{ form.features_2.value|default_if_none:''  }}" required>
+                                        <div class="help-block with-errors" {{form.features_2.errors.as_text}}></div>
+                                    </div>
+                                </div> {% endcomment %}
+                                <!-- technology stack 2  -->
+                                <div class=" col-md-12 form-line">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="technology_stack_2"
+                                            name="technology_stack_2" placeholder="Technology Stack"
+                                            data-error="Enter Technology Stack"
+                                            value="{{ form.technology_stack_2.value|default_if_none:''  }}" required>
+                                        <div class="help-block with-errors" {{form.technology_stack_2.errors.as_text}}>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <select class="form-control pref1" name="problem_statement_2_preference"
+                                            id="id_preference_2">
+                                            <option selected disabled>Preference</option>
+                                            {% comment %} {% for x,y in
+                                            form.fields.problem_statement_2_preference.choices %}
+                                            <option value="{{ x }}">{{ y }}</option>
+                                            {% endfor %} {% endcomment %}
+                                            <option value=1>1</option>
+                                            <option value=2>2</option>
+                                            <option value=3>3</option>
+                                            <option value=4>4</option>
+                                            <option value=5>5</option>
+                                        </select>
+
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 form-line">
+                                    <div class="form-group">
+                                        <hr>
+                                        <label class="form-heading" for="id_problem_statement_3">COLLEGE RECOMMENDATION
+                                            SYSTEM FOR ENGINEERING ADMISSION<span style="color:red">*</span></label>
+                                        {% comment %} <input type="text" class="form-control"
+                                            id="id_problem_statement_3" name="problem_statement_3"
+                                            placeholder="Problem Statement 3"
+                                            value="{{ form.problem_statement_3.value|default_if_none:''  }}" required>
+                                        {% endcomment %}
+                                        {% comment %}
+                                        <select class="form-control" id="id_problem_statement_3"
+                                            name="problem_statement_3">
+                                            <option disabled='' selected=''>Problem Statement 3</option>
+                                            {% for x,y in form.fields.problem_statement_3.choices %}
+                                            <option value="{{ x }}" {% if form.problem_statement_3.value in x %}
+                                                selected {% endif %}>{{ y }}</option>
+                                            {% endfor %}
+                                        </select>
+                                        {% endcomment %}
+                                        {% comment %} <div class="help-block with-errors">
+                                            {{form.problem_statement_3.errors.as_text}} {% endcomment %}
+                                            {% comment %} </div> {% endcomment %}
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 form-line">
+                                    <div class="form-group">
+                                        <textarea placeholder="Abstract for Problem Statement 3" name="abstract_3"
+                                            class='form-control' id="id_abstract_3" cols="30" rows="3"
+                                            required>{{ form.abstract_3.value|default_if_none:''  }}</textarea>
+                                        <div class="help-block with-errors">{{form.abstract_3.errors.as_text}}</div>
+                                    </div>
+                                </div>
+                                {% comment %}
+                                <!-- domain - 3-->
+                                <div class=" col-md-6 form-line">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="domain_3" name="domain_3"
+                                            placeholder="Domain" data-error="Enter Domain"
+                                            value="{{ form.domain_3.value|default_if_none:''  }}" required>
+                                        <div class="help-block with-errors" {{form.domain_3.errors.as_text}}></div>
+                                    </div>
+                                </div> {% endcomment %}
+                                <!-- feature -1 -->
+                                {% comment %} <div class=" col-md-6 form-line">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="features_3" name="features_3"
+                                            placeholder="Features" data-error="Enter Features"
+                                            value="{{ form.features_3.value|default_if_none:''  }}" required>
+                                        <div class="help-block with-errors" {{form.features_3.errors.as_text}}></div>
+                                    </div>
+                                </div> {% endcomment %}
+                                <!-- technology stack 1  -->
+                                <div class=" col-md-12 form-line">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="technology_stack_3"
+                                            name="technology_stack_3" placeholder="Technology Stack"
+                                            data-error="Enter Technology Stack"
+                                            value="{{ form.technology_stack_3.value|default_if_none:''  }}" required>
+                                        <div class="help-block with-errors" {{form.technology_stack_3.errors.as_text}}>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <select class="form-control" name="problem_statement_3_preference"
+                                            id="id_preference_3">
+                                            <option selected disabled>Preference</option>
+                                            <option value=1>1</option>
+                                            <option value=2>2</option>
+                                            <option value=3>3</option>
+                                            <option value=4>4</option>
+                                            <option value=5>5</option>
+                                            {% comment %} {% for x,y in
+                                            form.fields.problem_statement_3_preference.choices %}
+                                            <option value="{{ x }}">{{ y }}</option>
+                                            {% endfor %} {% endcomment %}
+                                        </select>
+
+                                    </div>
+                                </div>
+                                <!-- <div class="col-md-12 form-line">
+                                    <div class="form-group">
+                                        <select class="form-control" id="id_problem_statement_4"
+                                            name="problem_statement_4">
+                                            <option value="" disabled='' selected=''>Problem Statement 4</option>
+                                            {% for x,y in form.fields.problem_statement_4.choices %}
+                                            <option value="{{ x }}" {% if form.problem_statement_4.value in x %}
+                                                selected {% endif %}>{{ y }}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <div class="help-block with-errors">{{form.problem_statement_4.errors.as_text}}
+                                        </div>
+                                    </div>
+                                </div> -->
+
+                                <!-- <div class="col-md-12 form-line">
+                                    <div class="form-group">
+                                        <textarea placeholder="Abstract for Problem Statement 4" name="abstract_4"
+                                            class='form-control' id="id_abstract_4" cols="30" rows="3"
+                                            required>{{ form.abstract_4.value|default_if_none:''  }}</textarea>
+                                        <div class="help-block with-errors">{{form.abstract_4.errors.as_text}}</div>
+                                    </div>
+                                </div> -->
+
+                                <div class="col-md-12 form-line">
+                                    <div class="form-group">
+                                        <hr>
+                                        <label class="form-heading" for="id_problem_statement_4">REALTIME IMAGE-BASED
+                                            FLOOD DETECTION<span style="color:red">*</span></label>
+                                        {% comment %} <input type="text" class="form-control"
+                                            id="id_problem_statement_2" name="problem_statement_2"
+                                            placeholder="Problem Statement 2"
+                                            value="{{ form.problem_statement_2.value|default_if_none:''  }}" required>
+                                        {% endcomment %}
+                                        {% comment %}
+                                        <select class="form-control" id="id_problem_statement_2"
+                                            name="problem_statement_2">
+                                            <option disabled='' selected=''>Problem Statement 2</option>
+                                            {% for x,y in form.fields.problem_statement_2.choices %}
+                                            <option value="{{ x }}" {% if form.problem_statement_2.value in x %}
+                                                selected {% endif %}>{{ y }}</option>
+                                            {% endfor %}
+                                        </select>
+                                        {% endcomment %}
+                                        {% comment %} <div class="help-block with-errors">
+                                            {{form.problem_statement_2.errors.as_text}}
+                                        </div> {% endcomment %}
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 form-line">
+                                    <div class="form-group">
+                                        <textarea placeholder="Abstract for Problem Statement 4" name="abstract_4"
+                                            class='form-control' id="id_abstract_4" cols="30" rows="3"
+                                            required>{{ form.abstract_4.value|default_if_none:''  }}</textarea>
+                                        <div class="help-block with-errors">{{form.abstract_4.errors.as_text}}</div>
+                                    </div>
+                                </div>
+
+                                <!-- domain - 2-->
+                                {% comment %} <div class=" col-md-6 form-line">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="domain_4" name="domain_4"
+                                            placeholder="Domain" data-error="Enter Domain"
+                                            value="{{ form.domain_4.value|default_if_none:''  }}" required>
+                                        <div class="help-block with-errors" {{form.domain_4.errors.as_text}}></div>
+                                    </div>
+                                </div>
+                                <!-- feature -2-->
+                                <div class=" col-md-6 form-line">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="features_4" name="features_4"
+                                            placeholder="Features" data-error="Enter Features"
+                                            value="{{ form.features_4.value|default_if_none:''  }}" required>
+                                        <div class="help-block with-errors" {{form.features_4.errors.as_text}}></div>
+                                    </div>
+                                </div> {% endcomment %}
+                                <!-- technology stack 2  -->
+                                <div class=" col-md-12 form-line">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="technology_stack_4"
+                                            name="technology_stack_4" placeholder="Technology Stack"
+                                            data-error="Enter Technology Stack"
+                                            value="{{ form.technology_stack_4.value|default_if_none:''  }}" required>
+                                        <div class="help-block with-errors" {{form.technology_stack_4.errors.as_text}}>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <select class="form-control" name="problem_statement_4_preference"
+                                            id="id_preference_4">
+                                            <option selected disabled>Preference</option>
+                                            <option value=1>1</option>
+                                            <option value=2>2</option>
+                                            <option value=3>3</option>
+                                            <option value=4>4</option>
+                                            <option value=5>5</option>
+                                            {% comment %} {% for x,y in
+                                            form.fields.problem_statement_4_preference.choices %}
+                                            <option value="{{ x }}">{{ y }}</option>
+                                            {% endfor %} {% endcomment %}
+                                        </select>
+
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-12 form-line">
+                                    <div class="form-group">
+                                        <hr>
+                                        <label class="form-heading" for="id_problem_statement_5">REALTIME TRAFFIC
+                                            CONTROL SYSTEM<span style="color:red">*</span></label>
+                                        {% comment %} <input type="text" class="form-control"
+                                            id="id_problem_statement_2" name="problem_statement_2"
+                                            placeholder="Problem Statement 2"
+                                            value="{{ form.problem_statement_2.value|default_if_none:''  }}" required>
+                                        {% endcomment %}
+
+                                        {% comment %} <select class="form-control" id="id_problem_statement_2"
+                                            name="problem_statement_2">
+                                            <option disabled='' selected=''>Problem Statement 2</option>
+                                            {% for x,y in form.fields.problem_statement_2.choices %}
+                                            <option value="{{ x }}" {% if form.problem_statement_2.value in x %}
+                                                selected {% endif %}>{{ y }}</option>
+                                            {% endfor %}
+                                        </select>
+                                        {% endcomment %}
+                                        {% comment %} <div class="help-block with-errors">
+                                            {{form.problem_statement_2.errors.as_text}}
+                                        </div> {% endcomment %}
+                                    </div>
+                                </div>
+
+                                <div class="col-md-12 form-line">
+                                    <div class="form-group">
+                                        <textarea placeholder="Abstract for Problem Statement 5" name="abstract_5"
+                                            class='form-control' id="id_abstract_5" cols="30" rows="3"
+                                            required>{{ form.abstract_5.value|default_if_none:''  }}</textarea>
+                                        <div class="help-block with-errors">{{form.abstract_5.errors.as_text}}</div>
+                                    </div>
+                                </div>
+
+                                <!-- domain - 2-->
+                                {% comment %} <div class=" col-md-6 form-line">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="domain_5" name="domain_5"
+                                            placeholder="Domain" data-error="Enter Domain"
+                                            value="{{ form.domain_5.value|default_if_none:''  }}" required>
+                                        <div class="help-block with-errors" {{form.domain_5.errors.as_text}}></div>
+                                    </div>
+                                </div>
+                                <!-- feature -2-->
+                                <div class=" col-md-6 form-line">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="features_5" name="features_5"
+                                            placeholder="Features" data-error="Enter Features"
+                                            value="{{ form.features_5.value|default_if_none:''  }}" required>
+                                        <div class="help-block with-errors" {{form.features_5.errors.as_text}}></div>
+                                    </div>
+                                </div> {% endcomment %}
+                                <!-- technology stack 2  -->
+                                <div class=" col-md-12 form-line">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="technology_stack_5"
+                                            name="technology_stack_5" placeholder="Technology Stack"
+                                            data-error="Enter Technology Stack"
+                                            value="{{ form.technology_stack_5.value|default_if_none:''  }}" required>
+                                        <div class="help-block with-errors" {{form.technology_stack_5.errors.as_text}}>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <select class="form-control" name="problem_statement_5_preference"
+                                            id="id_preference_5">
+
+                                            <option selected disabled>Preference</option>
+                                            {% comment %} {% for x,y in
+                                            form.fields.problem_statement_5_preference.choices %}
+                                            <option value="{{ x }}">{{ y }}</option>
+                                            {% endfor %} {% endcomment %}
+                                            <option value=1>1</option>
+                                            <option value=2>2</option>
+                                            <option value=3>3</option>
+                                            <option value=4>4</option>
+                                            <option value=5>5</option>
+                                        </select>
+
+                                    </div>
+                                </div>
+
+
+                                <div class=" col-md-12 form-line">
+                                    <div class="form-group">
+                                        <hr>
+                                        <label class="form-heading" for="id_team_name">TEAM NAME<span
+                                                style="color:red">*</span></label>
+                                        <input type="text" class="form-control" id="id_team_name" name="team_name"
+                                            placeholder="Team Name" data-error="Please enter your team name"
+                                            value="{{ form.team_name.value|default_if_none:''  }}" required>
+                                        <div class="help-block with-errors" {{form.team_name.errors.as_text}}></div>
+                                    </div>
+                                </div>
+                                <!-- Team Leader Details -->
+
+                                <div class="col-md-12 form-line">
+                                    <h5 class="form-heading">TEAM LEADER<span style="color:red">*</span></h5>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="id_team_leader_name"
+                                            name="team_leader_name" placeholder="Full Name"
+                                            data-error="Please enter your name"
+                                            value="{{ form.team_leader_name.value|default_if_none:''  }}" required>
+                                        <div class="help-block with-errors">{{ form.team_leader_name.errors.as_text }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 form-line">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="id_team_leader_college_name"
+                                            name="team_leader_college_name" placeholder="College Name" required
+                                            data-error="Please enter your College Name"
+                                            value="{{ form.team_leader_college_name.value|default_if_none:''  }}">
+                                        <div class="help-block with-errors">
+                                            {{ form.team_leader_college_name.errors.as_text }}</div>
+                                    </div>
+                                </div>
+
+                                <!-- <div class="col-md-5 form-line">
+                                    <div class="form-group">
+                                        <select class="form-control" name="team_leader_year" id="id_team_leader_year">
+                                            <option value="I">First Year</option>
+
+                                            <option value="II">Second Year</option>
+
+                                            <option value="III">Third Year</option>
+
+                                            <option value="IV">Forth Year</option>
+
+                                        </select>
+                                        <div class="help-block with-errors">{{ form.team_leader_year.errors.as_text }}
+                                        </div>
+                                    </div>
+                                </div> -->
+
+
+                                <div class="col-md-6 form-line">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="id_team_leader_course_year"
+                                            name="team_leader_course_year" placeholder="Course and Year"
+                                            data-error="Please enter your course and year"
+                                            value="{{ form.team_leader_course_year.value|default_if_none:''  }}"
+                                            required>
+                                        <div class="help-block with-errors"
+                                            {{form.team_leader_course_year.errors.as_text}}></div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 form-line">
+                                    <div class="form-group">
+                                        <input type="email" class="form-control" id="id_team_leader_email"
+                                            name="team_leader_email" placeholder="Email" required
+                                            data-error="Please enter your Email"
+                                            value="{{ form.team_leader_email.value|default_if_none:''  }}">
+                                        <div class="help-block with-errors">{{ form.team_leader_email.errors.as_text }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 form-line">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="id_team_leader_tel_number"
+                                            name="team_leader_tel_number" placeholder="Phone Number" required
+                                            data-error="Please enter your Mobile Number"
+                                            value="{{ form.team_leader_tel_number.value|default_if_none:''  }}">
+                                        <div class="help-block with-errors">
+                                            {{ form.team_leader_tel_number.errors.as_text }}</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 form-line">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="id_team_leader_alter_tel_number"
+                                            name="team_leader_alter_tel_number" placeholder="Alternate Phone Number"
+                                            data-error="Please enter your Mobile Number"
+                                            value="{{ form.team_leader_alter_tel_number.value|default_if_none:''  }}">
+                                        <div class="help-block with-errors">
+                                            {{ form.team_leader_alter_tel_number.errors.as_text }}</div>
+                                    </div>
+                                </div>
+
+                                <!-- <div class="col-md-3 form-line">
+                                    <div class="form-group">
+                                        <select class="form-control" name="team_leader_tsize" id="id_team_leader_tsize">
+                                            <option selected disabled>Shirt Size</option>
+                                            <option value="S">S-36</option>
+
+                                            <option value="M">M-38</option>
+
+                                            <option value="L">L-40</option>
+
+                                            <option value="XL">XL-42</option>
+
+                                            <option value="XXL">XXL-44</option>
+
+                                        </select>
+                                        <div class="help-block with-errors">{{ form.team_leader_tsize.errors.as_text }}
+                                        </div>
+                                    </div>
+                                </div> -->
+
+                                <div class="col-md-4 form-line">
+                                    <div class="form-group">
+                                        <select class="form-control" name="team_leader_gender"
+                                            id="id_team_leader_gender" required>
+                                            <option selected disabled>Gender</option>
+                                            {% for x,y in form.fields.team_leader_gender.choices %}
+                                            <option value="{{ x }}" {% if form.team_leader_gender.value in x %} selected
+                                                {% endif %}>{{ y }}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <div class="help-block with-errors">{{ form.team_leader_gender.errors.as_text }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Teamate 1 details -->
+
+
+                                <div class="col-md-12 form-line">
+                                    <h5 id="teammate1" class="form-heading">TEAMMATE 1</h5>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="id_teammate1_name"
+                                            name="teammate1_name" placeholder="Full Name"
+                                            data-error="Please enter your name"
+                                            value="{{ form.teammate1_name.value|default_if_none:''  }}">
+                                        <div class="help-block with-errors">{{ form.teammate1_name.errors.as_text }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 form-line">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="id_teammate1_college_name"
+                                            name="teammate1_college_name" placeholder="College Name"
+                                            data-error="Please enter your College Name"
+                                            value="{{ form.teammate1_college_name.value|default_if_none:''  }}">
+                                        <div class="help-block with-errors">
+                                            {{ form.teammate1_college_name.errors.as_text }}</div>
+                                    </div>
+                                </div>
+
+                                <!-- <div class="col-md-5 form-line">
+                                    <div class="form-group">
+                                        <select class="form-control" name="teammate1_year" id="id_teammate1_year">
+                                            <option value="I">First Year</option>
+
+                                            <option value="II">Second Year</option>
+
+                                            <option value="III">Third Year</option>
+
+                                            <option value="IV">Forth Year</option>
+
+                                        </select>
+                                        <div class="help-block with-errors">{{ form.teammate1_year.errors.as_text }}
+                                        </div>
+                                    </div>
+                                </div> -->
+
+                                <div class="col-md-6 form-line">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="id_teammate1_course_year"
+                                            name="teammate1_course_year" placeholder="Course and Year"
+                                            data-error="Please enter your course and year"
+                                            value="{{ form.teammate1_course_year.value|default_if_none:''  }}">
+                                        <div class="help-block with-errors"
+                                            {{form.teammate1_course_year.errors.as_text}}></div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6 form-line">
+                                    <div class="form-group">
+                                        <input type="email" class="form-control" id="id_teammate1_email"
+                                            name="teammate1_email" placeholder="Email"
+                                            data-error="Please enter your Email"
+                                            value="{{ form.teammate1_email.value|default_if_none:''  }}">
+                                        <div class="help-block with-errors">{{ form.teammate1_email.errors.as_text }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 form-line">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="id_teammate1_tel_number"
+                                            name="teammate1_tel_number" placeholder="Phone Number"
+                                            data-error="Please enter your Mobile Number"
+                                            value="{{ form.teammate1_tel_number.value|default_if_none:''  }}">
+                                        <div class="help-block with-errors">
+                                            {{ form.teammate1_tel_number.errors.as_text }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 form-line">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="id_teammate1_alter_tel_number"
+                                            name="teammate1_alter_tel_number" placeholder="Alternate Phone Number"
+                                            data-error="Please enter your Mobile Number"
+                                            value="{{ form.teammate1_alter_tel_number.value|default_if_none:''  }}">
+                                        <div class="help-block with-errors">
+                                            {{ form.teammate1_alter_tel_number.errors.as_text }}</div>
+                                    </div>
+                                </div>
+
+                                <!-- <div class="col-md-3 form-line">
+                                    <div class="form-group">
+                                        <select class="form-control" name="teammate1_tsize" id="id_teammate1_tsize">
+                                            <option value="S">S-36</option>
+
+                                            <option value="M">M-38</option>
+
+                                            <option value="L">L-40</option>
+
+                                            <option value="XL">XL-42</option>
+
+                                            <option value="XXL">XXL-44</option>
+
+                                        </select>
+                                        <div class="help-block with-errors">{{ form.teammate1_tsize.errors.as_text }}
+                                        </div>
+                                    </div>
+                                </div> -->
+
+                                <div class="col-md-4 form-line">
+                                    <div class="form-group">
+                                        <select class="form-control" name="teammate1_gender" id="id_teammate1_gender">
+                                            <option selected disabled>Gender</option>
+                                            {% for x,y in form.fields.teammate1_gender.choices %}
+                                            <option value="{{ x }}" {% if form.teammate1_gender.value in x %} selected
+                                                {% endif %}>{{ y }}</option>
+                                            {% endfor %}
+
+                                        </select>
+                                        <div class="help-block with-errors">{{ form.teammate1_gender.errors.as_text }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Teammate2 Details -->
+
+                                <div class="col-md-12 form-line">
+                                    <h5 class="form-heading">TEAMMATE 2</h5>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="id_teammate2_name"
+                                            name="teammate2_name" placeholder="Full Name"
+                                            data-error="Please enter your name"
+                                            value="{{ form.teammate2_name.value|default_if_none:''  }}">
+                                        <div class="help-block with-errors">{{ form.teammate2_name.errors.as_text }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 form-line">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="id_teammate2_college_name"
+                                            name="teammate2_college_name" placeholder="College Name"
+                                            data-error="Please enter your College Name"
+                                            value="{{ form.teammate2_college_name.value|default_if_none:''  }}">
+                                        <div class="help-block with-errors">
+                                            {{ form.teammate2_college_name.errors.as_text }}</div>
+                                    </div>
+                                </div>
+
+                                <!-- <div class="col-md-5 form-line">
+                                    <div class="form-group">
+                                        <select class="form-control" name="teammate2_year" id="id_teammate2_year">
+                                            <option value="I">First Year</option>
+
+                                            <option value="II">Second Year</option>
+
+                                            <option value="III">Third Year</option>
+
+                                            <option value="IV">Forth Year</option>
+
+                                        </select>
+                                        <div class="help-block with-errors">{{ form.teammate2_year.errors.as_text }}
+                                        </div>
+                                    </div>
+                                </div> -->
+
+                                <div class="col-md-6 form-line">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="id_teammate2_course_year"
+                                            name="teammate2_course_year" placeholder="Course and Year"
+                                            data-error="Please enter your course and year"
+                                            value="{{ form.teammate2_course_year.value|default_if_none:''  }}">
+                                        <div class="help-block with-errors"
+                                            {{form.teammate2_course_year.errors.as_text}}></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 form-line">
+                                    <div class="form-group">
+                                        <input type="email" class="form-control" id="id_teammate2_email"
+                                            name="teammate2_email" placeholder="Email"
+                                            data-error="Please enter your Email"
+                                            value="{{ form.teammate2_email.value|default_if_none:''  }}">
+                                        <div class="help-block with-errors">{{ form.teammate2_email.errors.as_text }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 form-line">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="id_teammate2_tel_number"
+                                            name="teammate2_tel_number" placeholder="Phone Number"
+                                            data-error="Please enter your Mobile Number"
+                                            value="{{ form.teammate2_tel_number.value|default_if_none:''  }}">
+                                        <div class="help-block with-errors">
+                                            {{ form.teammate2_tel_number.errors.as_text }}</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 form-line">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="id_teammate2_alter_tel_number"
+                                            name="teammate2_alter_tel_number" placeholder="Alternate Phone Number"
+                                            data-error="Please enter your Mobile Number"
+                                            value="{{ form.teammate2_alter_tel_number.value|default_if_none:''  }}">
+                                        <div class="help-block with-errors">
+                                            {{ form.teammate2_alter_tel_number.errors.as_text }}</div>
+                                    </div>
+                                </div>
+
+
+                                <!-- <div class="col-md-3 form-line">
+                                    <div class="form-group">
+                                        <select class="form-control" name="teammate2_tsize" id="id_teammate2_tsize">
+                                            <option value="S">S-36</option>
+
+                                            <option value="M">M-38</option>
+
+                                            <option value="L">L-40</option>
+
+                                            <option value="XL">XL-42</option>
+
+                                            <option value="XXL">XXL-44</option>
+
+                                        </select>
+                                        <div class="help-block with-errors">{{ form.teammate2_tsize.errors.as_text }}
+                                        </div>
+                                    </div>
+                                </div> -->
+
+
+                                <div class="col-md-4 form-line">
+                                    <div class="form-group">
+                                        <select class="form-control" name="teammate2_gender" id="id_teammate2_gender">
+                                            <option selected disabled>Gender</option>
+                                            {% for x,y in form.fields.teammate2_gender.choices %}
+                                            <option value="{{ x }}" {% if form.teammate2_gender.value in x %} selected
+                                                {% endif %}>{{ y }}</option>
+                                            {% endfor %}
+                                        </select>
+                                        <div class="help-block with-errors">{{ form.teammate2_gender.errors.as_text }}
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <!-- Teammate 3 Details -->
+
+                                <div class="col-md-12 form-line">
+                                    <h5 class="form-heading">TEAMMATE 3</h5>
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="id_teammate3_name"
+                                            name="teammate3_name" placeholder="Full Name"
+                                            data-error="Please enter your name"
+                                            value="{{ form.teammate3_name.value|default_if_none:''  }}">
+                                        <div class="help-block with-errors">{{ form.teammate3_name.errors.as_text }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12 form-line">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="id_teammate3_college_name"
+                                            name="teammate3_college_name" placeholder="College Name"
+                                            data-error="Please enter your College Name"
+                                            value="{{ form.teammate3_college_name.value|default_if_none:''  }}">
+                                        <div class="help-block with-errors">
+                                            {{ form.teammate3_college_name.errors.as_text }}</div>
+                                    </div>
+                                </div>
+
+                                <!-- <div class="col-md-5 form-line">
+                                    <div class="form-group">
+                                        <select class="form-control" name="teammate3_year" id="id_teammate3_year">
+                                            <option value="I">First Year</option>
+
+                                            <option value="II">Second Year</option>
+
+                                            <option value="III">Third Year</option>
+
+                                            <option value="IV">Forth Year</option>
+
+                                        </select>
+                                        <div class="help-block with-errors">{{ form.teammate3_year.errors.as_text }}
+                                        </div>
+                                    </div>
+                                </div> -->
+
+                                <div class="col-md-6 form-line">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="id_teammate3_course_year"
+                                            name="teammate3_course_year" placeholder="Course and Year"
+                                            data-error="Please enter your course and year"
+                                            value="{{ form.teammate3_course_year.value|default_if_none:''  }}">
+                                        <div class="help-block with-errors"
+                                            {{form.teammate3_course_year.errors.as_text}}></div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 form-line">
+                                    <div class="form-group">
+                                        <input type="email" class="form-control" id="id_teammate3_email"
+                                            name="teammate3_email" placeholder="Email"
+                                            data-error="Please enter your Email"
+                                            value="{{ form.teammate3_email.value|default_if_none:''  }}">
+                                        <div class="help-block with-errors">{{ form.teammate3_email.errors.as_text }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 form-line">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="id_teammate3_tel_number"
+                                            name="teammate3_tel_number" placeholder="Phone Number"
+                                            data-error="Please enter your Mobile Number"
+                                            value="{{ form.teammate3_tel_number.value|default_if_none:''  }}">
+                                        <div class="help-block with-errors">
+                                            {{ form.teammate3_tel_number.errors.as_text }}</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6 form-line">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="id_teammate3_alter_tel_number"
+                                            name="teammate3_alter_tel_number" placeholder="Alternate Phone Number"
+                                            data-error="Please enter your Mobile Number"
+                                            value="{{ form.teammate3_alter_tel_number.value|default_if_none:''  }}">
+                                        <div class="help-block with-errors">
+                                            {{ form.teammate3_alter_tel_number.errors.as_text }}</div>
+                                    </div>
+                                </div>
+
+
+                                <!-- <div class="col-md-3 form-line">
+                                    <div class="form-group">
+                                        <select class="form-control" name="teammate3_tsize" id="id_teammate3_tsize">
+                                            <option value="S">S-36</option>
+
+                                            <option value="M">M-38</option>
+
+                                            <option value="L">L-40</option>
+
+                                            <option value="XL">XL-42</option>
+
+                                            <option value="XXL">XXL-44</option>
+
+                                        </select>
+                                        <div class="help-block with-errors">{{ form.teammate3_tsize.errors.as_text }}
+                                        </div>
+                                    </div>
+                                </div> -->
+
+
+                                <div class="col-md-4 form-line">
+                                    <div class="form-group">
+                                        <select class="form-control" name="teammate3_gender" id="id_teammate3_gender">
+                                            <option selected disabled>Gender</option>
+                                            {% for x,y in form.fields.teammate3_gender.choices %}
+                                            <option value="{{ x }}" {% if form.teammate3_gender.value in x %} selected
+                                                {% endif %}>{{ y }}</option>
+                                            {% endfor %}
+
+                                        </select>
+                                        <div class="help-block with-errors">{{ form.teammate3_gender.errors.as_text }}
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="col-md-12">
+
+                                    <div class="form-submit">
+                                        <button type="submit" class="btn btn-common disabled" id="form-submit"
+                                            style="pointer-events: all; cursor: pointer;"><i class="fa fa-paper-plane"
+                                                aria-hidden="true"></i> REGISTER</button>
+                                        <div id="msgSubmit" class="h3 text-center hidden"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+
+                        <p class="form-control mt-3 text-dark">NOTE: The order preference of the problem statement is
+                            soley for our reference. We <b>do not assure</b> that the topic allocation will be based on
+                            your top preferences only.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<script>
+
+</script>
+<!-- Form End -->
+
+{%endblock%}

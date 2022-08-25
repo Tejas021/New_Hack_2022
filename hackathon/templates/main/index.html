@@ -1,0 +1,1947 @@
+{%extends 'main/base.html'%}
+{%load static%}
+{%block body%}
+<style>
+  .hackathon-timeline-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+  }
+
+  .twitter-timeline-container {
+    width: max(35vw, 360px);
+    height: 400px;
+    overflow-y: scroll;
+    margin-top: 0.8rem;
+  }
+
+  .youtube-stream {
+    width: 600px;
+  }
+
+  .third {
+    background: linear-gradient(45deg, #a75b10 100%, #ffd8b1);
+    box-shadow: 0 0 12px #ffd8b1;
+  }
+
+  @media only screen and (max-width: 767px) {
+    .accordion .card-body {
+      font-size: 11px;
+      padding-top: 0.8rem;
+    }
+
+    .schedule .schedule-tab-title .nav-tabs .nav-item {
+      width: 100%;
+    }
+
+    .schedule .schedule-tab-title .nav-tabs .nav-link {
+      width: 100%;
+    }
+  }
+
+  @media (max-width: 991px) {
+    .accordion .card-body {
+      font-size: 12px;
+      padding-top: 0.8rem;
+    }
+  }
+
+  .highlighted {
+    font-weight: bold;
+    color: #25a7bf;
+  }
+
+  .alert {
+    z-index: 999;
+  }
+
+    {
+    % comment %
+  }
+
+  problem statements {
+    % endcomment %
+  }
+
+  .flip-card {
+    background-color: transparent;
+    width: 300px;
+    height: 300px;
+    perspective: 1000px;
+    cursor: pointer;
+  }
+
+  .flip-card-inner {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    transition: transform 0.5s;
+    transform-style: preserve-3d;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  }
+
+  .flip-card:hover .flip-card-inner {
+    /* transform: rotateY(180deg); */
+    transform: scale(1.05)
+  }
+
+  .flip-card-front,
+  .flip-card-back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    -webkit-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+
+
+
+
+  .flip-card-front img,
+  .flip-card-back img {
+    width: 100%;
+    height: 100%;
+  }
+
+  .flip-card-back {
+    transform: rotateY(180deg);
+  }
+
+  .hero {
+    text-align: center;
+    color: white;
+  }
+
+  .hero-wrapper {
+    position: absolute;
+    inset: 0 10%;
+    /* transform: translate(-50%, -50%); */
+    z-index: 2;
+    display: grid;
+    place-content: center;
+    font-size: small;
+  }
+
+  .hero h1,
+  .hero h2 {
+    font-size: max(1.5rem, 3.3vw);
+  }
+
+
+  @media screen and (max-width:576px) {
+    .flip-card {
+      width: 300px;
+      margin: auto;
+      margin-top: 15px;
+    }
+
+  }
+
+  @media (min-width:576px) and (max-width:920px) {
+    .flip-card {
+      width: 500px;
+      height: 500px;
+      margin: auto;
+      margin-top: 15px;
+    }
+
+  }
+</style>
+
+<!-- Main Carousel Section Start -->
+<div id="main-slide" class="carousel slide" data-ride="carousel">
+  <ol class="carousel-indicators">
+
+    <li data-target="#main-slide" data-slide-to="0" class="active"></li>
+    <li data-target="#main-slide" data-slide-to="1"></li>
+    <li data-target="#main-slide" data-slide-to="2"></li>
+    <li data-target="#main-slide" data-slide-to="3"></li>
+    <!-- <li data-target="#main-slide" data-slide-to="4"></li>
+    <li data-target="#main-slide" data-slide-to="5"></li> -->
+  </ol>
+  <div class="carousel-inner">
+
+    <!-- <div class="carousel-item active">
+      <div class="carousel-image-custom"
+        style="background-image:linear-gradient(45deg,rgba(0,0,0,.4),rgba(0,0,0,.2)), url({% static 'img/img5.jpg'%});">
+      </div>
+      <div class="carousel-caption d-md-block">
+        <p class="fadeInUp wow" data-wow-delay=".6s">PREPARE YOURSELF FOR THE</p>
+        <h1 class="wow fadeInDown heading" data-wow-delay=".4s">HACKATHON 2021 RELOADED</h1>
+          {% comment %}
+        <a href="{%url 'student_form'%}" class="fadeInLeft wow btn btn-common btn-lg" data-wow-delay=".6s">ENROLL
+          NOW</a>
+        <a href="{%url 'problem_list'%}" class="fadeInRight wow custom-btn-border btn btn-border btn-lg"
+          data-wow-delay=".6s">PROBLEM LIST</a>
+        {% endcomment %}
+      </div>
+    </div> -->
+    <div class="hero-wrapper">
+
+      <div class="hero">
+        <h2 class="wow bounceIn heading" data-wow-delay=".7s">Vidyavardhini's College of Engineering & Technology</h2>
+        <p class="fadeInUp wow" data-wow-delay=".6s">Presents</p>
+        <h1 class="wow bounceIn heading" data-wow-delay=".7s">HACKATHON 2021 RELOADED</h1>
+        <a href="{%url 'student_form'%}" class="fadeInLeft wow btn btn-common btn-lg" data-wow-delay=".6s">ENROLL
+          NOW</a>
+      </div>
+    </div>
+
+    <div class="carousel-item active">
+      <div class="carousel-image-custom"
+        style="background-image:linear-gradient(45deg,rgba(0,0,0,.4),rgba(0,0,0,.6)),url({%static 'img/img8.jpg'%})">
+      </div>
+      <div class="carousel-caption d-md-block">
+        <!-- <h2>Vidyavardhini's College Of Engineering & Technology</h2>
+        <p class="fadeInUp wow" data-wow-delay=".6s">Presents</p>
+        <h1 class="wow bounceIn heading" data-wow-delay=".7s">VCET HACKATHON 2021 RELOADED</h1>
+        <a href="{%url 'student_form'%}" class="fadeInLeft wow btn btn-common btn-lg" data-wow-delay=".6s">ENROLL
+          NOW</a> -->
+        {% comment %}
+        <a href="{%url 'problem_list'%}" class="fadeInRight custom-btn-border wow btn btn-border btn-lg"
+          data-wow-delay=".6s">PROBLEM LIST</a>
+        {% endcomment %}
+      </div>
+    </div>
+    <div class="carousel-item">
+      <div class="carousel-image-custom"
+        style="background-position:0% 50%;background-image:linear-gradient(45deg,rgba(0,0,0,.4),rgba(0,0,0,.6)),url({%static 'img/img3.jpg'%})">
+      </div>
+      <div class="carousel-caption d-md-block">
+        <!-- <h2>Vidyavardhini's College Of Engineering & Technology</h2>
+        <p class="fadeInUp wow" data-wow-delay=".6s">Presents</p>
+        <h1 class="wow fadeInUp heading" data-wow-delay=".6s">VCET HACKATHON 2021 RELOADED</h1>
+        <a href="{%url 'student_form'%}" class="fadeInLeft wow btn btn-common btn-lg" data-wow-delay=".6s">ENROLL
+          NOW</a> -->
+        {% comment %}
+        <a href="{%url 'problem_list'%}" class="fadeInRight wow btn custom-btn-border btn-border btn-lg"
+          data-wow-delay=".6s">PROBLEM LIST</a>
+        {% endcomment %}
+      </div>
+    </div>
+    <div class="carousel-item">
+      <div class="carousel-image-custom"
+        style="background-position:0% 50%;background-image:linear-gradient(45deg,rgba(0,0,0,.4),rgba(0,0,0,.6)),url({%static 'img/img6.jpg'%})">
+      </div>
+      <div class="carousel-caption d-md-block">
+        <!-- <p class="fadeInUp wow" data-wow-delay=".6s">EARN CASH PRIZES & GOODIES</p>
+        <h1 class="wow fadeInUp heading" data-wow-delay=".6s">VCET HACKATHON 2021 RELOADED</h1>
+        <a href="{%url 'student_form'%}" class="fadeInLeft wow btn btn-common btn-lg" data-wow-delay=".6s">ENROLL
+          NOW</a> -->
+        {% comment %}
+        <a href="{%url 'problem_list'%}" class="fadeInRight wow btn custom-btn-border btn-border btn-lg"
+          data-wow-delay=".6s">PROBLEM LIST</a>
+        {% endcomment %}
+      </div>
+    </div>
+    {% comment %}
+    <!-- <div class="carousel-item">
+      <div class="carousel-image-custom"
+        style="background-position:0% 50%;background-image:linear-gradient(45deg,rgba(0,0,0,.4),rgba(0,0,0,.6)),url({%static 'img/img9.jpg'%})">
+      </div>
+      <div class="carousel-caption d-md-block">
+        <p class="fadeInUp wow" data-wow-delay=".6s">GET YOUR CODING SKILL ENHANCED</p>
+        <h1 class="wow fadeInUp heading" data-wow-delay=".6s">HACKATHON 2021 RELOADED</h1>
+        <a href="{%url 'student_form'%}" class="fadeInLeft wow btn btn-common btn-lg" data-wow-delay=".6s">ENROLL
+          NOW</a>
+
+        <a href="{%url 'problem_list'%}" class="fadeInRight wow btn custom-btn-border btn-border btn-lg"
+          data-wow-delay=".6s">PROBLEM LIST</a>
+
+      </div>
+    </div> -->
+    {% endcomment %}
+    <div class="carousel-item">
+      <div class="carousel-image-custom"
+        style="background-position:0% 50%;background-image:linear-gradient(45deg,rgba(0,0,0,.4),rgba(0,0,0,.6)),url({%static 'img/img9.jpg'%})">
+      </div>
+      <div class="carousel-caption d-md-block">
+        <!-- <p class="fadeInUp wow" data-wow-delay=".6s">BRACE YOURSELF FOR THE</p>
+        <h1 class="wow fadeInUp heading" data-wow-delay=".6s">VCET HACKATHON 2021 RELOADED</h1>
+        <a href="{%url 'student_form'%}" class="fadeInLeft wow btn btn-common btn-lg" data-wow-delay=".6s">ENROLL
+          NOW</a> -->
+        {% comment %}
+        <a href="{%url 'problem_list'%}" class="fadeInRight wow btn custom-btn-border btn-border btn-lg"
+          data-wow-delay=".6s">PROBLEM LIST</a>
+        {% endcomment %}
+      </div>
+    </div>
+    <!-- <div class="carousel-item">
+      <div class="carousel-image-custom"
+        style="background-position:0% 50%;background-image:linear-gradient(45deg,rgba(0,0,0,.4),rgba(0,0,0,.6)),url({%static 'img/img3.jpg'%})">
+      </div>
+      <div class="carousel-caption d-md-block">
+        <p class="fadeInUp wow" data-wow-delay=".6s">CODE AND EARN CASH PRIZE</p>
+        <h1 class="wow fadeInUp heading" data-wow-delay=".6s">HACKATHON 2021 RELOADED</h1>
+        {% comment %}
+        <a href="{%url 'student_form'%}" class="fadeInLeft wow btn btn-common btn-lg" data-wow-delay=".6s">ENROLL
+          NOW</a>
+        <a href="{%url 'problem_list'%}" class="fadeInRight wow btn custom-btn-border btn-border btn-lg"
+          data-wow-delay=".6s">PROBLEM LIST</a>
+        {% endcomment %}
+      </div>
+    </div> -->
+    <!-- <div class="carousel-item">
+      <div class="carousel-image-custom"
+        style="background-position:0% 50%;background-image:linear-gradient(45deg,rgba(0,0,0,.4),rgba(0,0,0,.6)),url({%static 'img/img7.jpg'%})">
+      </div>
+      <div class="carousel-caption d-md-block">
+        <p class="fadeInUp wow" data-wow-delay=".6s">PREPARE YOURSELF FOR THE</p>
+        <h1 class="wow fadeInUp heading" data-wow-delay=".6s">HACKATHON 2021 RELOADED</h1>
+        {% comment %}
+        <a href="{%url 'student_form'%}" class="fadeInLeft wow btn btn-common btn-lg" data-wow-delay=".6s">ENROLL
+          NOW</a>
+        <a href="{%url 'problem_list'%}" class="fadeInRight wow btn custom-btn-border btn-border btn-lg"
+          data-wow-delay=".6s">PROBLEM LIST</a>
+        {% endcomment %}
+      </div>
+    </div> -->
+  </div>
+  <a class="carousel-control-prev" href="#main-slide" role="button" data-slide="prev">
+    <span class="carousel-control" aria-hidden="true"><i class="lni-chevron-left"></i></span>
+    <span class="sr-only">Previous</span>
+  </a>
+  <a class="carousel-control-next" href="#main-slide" role="button" data-slide="next">
+    <span class="carousel-control" aria-hidden="true"><i class="lni-chevron-right"></i></span>
+    <span class="sr-only">Next</span>
+  </a>
+</div>
+<!-- Main Carousel Section End -->
+
+</header>
+<!-- Header Area wrapper End -->
+{% if displayTimeline %}
+<!-- Twitter TimeLine Section Starts -->
+<section class="section-padding hackathon-timeline">
+  <h2 class="wow fadeInDown section-title" data-wow-delay="0.2s">Live Updates</h2>
+
+  <div class="hackathon-timeline-container">
+    <iframe class="youtube-stream wow fadeInDown" data-wow-delay="0.2s" width="560" height="315" src="{{ yt_url }}"
+      frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+      allowfullscreen></iframe>
+
+    <div class="twitter-timeline-container">
+      <a class="twitter-timeline wow fadeInDown" data-wow-delay="0.2s" data-lang="en" data-theme="light"
+        href="{{ tw_url }}">VCET Hackathon Updates</a>
+      <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+    </div>
+  </div>
+
+</section>
+{% endif %}
+
+<!-- {% if displayTimer %} -->
+<!-- Twitter Timeline Section ends -->
+
+<!-- Coundown Section Start -->
+<section class="countdown-timer section-padding">
+  <div class="container">
+    <div class="row text-center">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="heading-count">
+          <h2 class="wow fadeInDown" data-wow-delay="0.2s">Event Will Start In</h2>
+        </div>
+      </div>
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="row time-countdown justify-content-center wow fadeInUp" data-wow-delay="0.2s">
+          <div id="clock" class="time-count"></div>
+        </div>
+        <!---
+            <a href="pricing.html" class="btn btn-common wow fadeInUp" data-wow-delay="0.3s">Add to My Calender</a>
+            -->
+      </div>
+    </div>
+  </div>
+</section>
+<!-- {% endif %} -->
+<!-- Coundown Section End -->
+<section class="countdown-timer section-padding">
+  <div class="container">
+    <div class="row text-center">
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="heading-count">
+          <h2 class="wow fadeInDown" data-wow-delay="0.2s">Event Will Start In</h2>
+        </div>
+      </div>
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <div class="row time-countdown justify-content-center wow fadeInUp" data-wow-delay="0.2s">
+          <div id="clock" class="time-count"></div>
+        </div>
+        <!---
+            <a href="pricing.html" class="btn btn-common wow fadeInUp" data-wow-delay="0.3s">Add to My Calender</a>
+            -->
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Services Section Start -->
+<section id="services" class="services section-padding">
+  <div class="container">
+    <!--
+        <div class="row">
+          <div class="col-12">
+            <div class="section-title-header text-center">
+              <h1 class="section-title wow fadeInUp" data-wow-delay="0.2s">Why You Choose Us?</h1>
+              <p class="wow fadeInDown" data-wow-delay="0.2s">Global Grand Event on Digital Design</p>
+            </div>
+          </div>
+        </div>
+      -->
+    <div class="row services-wrapper">
+      <!-- Services item -->
+      <div class="col-md-6 col-lg-4 col-xs-12 padding-none">
+        <div class="services-item wow fadeInDown" data-wow-delay="0.2s">
+          <div class="icon">
+            <i class="lni-calendar"></i>
+          </div>
+          <div class="services-content">
+            <h3><a href="#">DATE</a></h3>
+            <p>1st-2nd October, 2021</p>
+          </div>
+        </div>
+      </div>
+      <!-- Services item -->
+      <div class="col-md-6 col-lg-4 col-xs-12 padding-none">
+        <div class="services-item wow fadeInDown" data-wow-delay="0.4s">
+          <div class="icon">
+            <i class="lni-map-marker"></i>
+          </div>
+          <div class="services-content">
+            <h3><a href="#">LOCATION</a></h3>
+            <p>Online</p>
+          </div>
+        </div>
+      </div>
+      <!-- Services item -->
+      <div class="col-md-6 col-lg-4 col-xs-12 padding-none">
+        <div class="services-item wow fadeInDown" data-wow-delay="0.6s">
+          <div class="icon">
+            <i class="lni-hourglass"></i>
+          </div>
+          <div class="services-content">
+            <h3><a href="#">DURATION</a></h3>
+            <p>30 Hours</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Services Section End -->
+
+
+<!-- About Section Start -->
+<section id="about" class="section-padding">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="section-title-header text-center">
+          <h1 class="section-title wow fadeInUp" data-wow-delay="0.2s">About VCET HACKATHON</h1>
+          <p class="wow fadeInDown" data-wow-delay="0.2s"> VCET Hackathon is a 30 hours <b>Virtual Hackathon</b>
+            organized by
+            <b>Department
+              of Information Technology</b> of <a href="https://vcet.edu.in/" style="color:black"><b>"Vidyavardhini's
+                College of Engineering and Technology"</b></a>.
+            By organizing this Hackathon, we are trying to promote a strong Programming and Product Building Culture
+            among students that will help them develop Problem Solving, Critical Thinking and Software Development
+            Skills.
+            It is an opportunity to take on challenging problems that revolve around us all the time and crack them
+            down.<br><br>
+            <b> Will you get time to eat? &nbsp;&nbsp;&nbsp; Can you ditch your sleep?&nbsp;&nbsp;&nbsp; Do you have
+              passion to build?&nbsp;&nbsp;&nbsp;</b>
+            <br>
+            <b>Find out in this 30 hours long thrilling experience!</b>
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+<!-- About Section End -->
+
+<!-- Sponser Section -->
+<section id="sponsor" class="">
+  <!-- 1st row -->
+  <div class="section-title-header text-center">
+    <h1 class="section-title wow fadeInUp" data-wow-delay="0.2s">Hackathon Sponsors</h1>
+  </div>
+  <div class="container">
+    <div class="text-center sponsor-content m-4">
+      <h1 class="mt-5" style="font-size: 2.5rem;">Title Sponsor</h1>
+      <a href="https://deardigital.be">
+        <img src="{%static 'img/sponsors/dear-digital.png' %}" class="img-fluid" alt="">
+      </a>
+    </div>
+    <div class="text-center sponsor-content m-4">
+      <h1 class="mt-5" style="font-size: 2.3rem;">Powered By</h1>
+      <a href="https://internetivo.com">
+        <img style="width: 350px;" src="{%static 'img/sponsors/internetivo.png' %}" class="img-fluid" alt="">
+      </a>
+    </div>
+    <div class="text-center sponsor-content m-4">
+      <h1 class="mt-5" style="font-size: 2.3rem;">Co-Powered By</h1>
+      <a href="https://www.unionbankonline.co.in/">
+        <img style="width: 350px;" src="{%static 'img/sponsors/union_bank2021.jpg' %}" class="img-fluid" alt="">
+      </a>
+    </div>
+    <br>
+    <!-- 1st row ends -->
+
+    <!-- 2nd row start -->
+    <h1 style="text-align:center">Associated With</h1>
+    <br>
+
+    <div class="row">
+      <div class="col-sm-4 text-center sponsor-content">
+        <h1>Education Partner</h1>
+        <a href="https://www.geeksforgeeks.org/">
+          <img src="{%static 'img/sponsors/gfg_2021.png' %}" class="img-fluid" alt="">
+        </a>
+
+      </div>
+      <div class="col-sm-4 text-center sponsor-content ">
+        <h1>Streaming Partner</h1>
+        <a href="https://streamyard.com/">
+          <img src="{%static 'img/sponsors/StreamYard - Horz (2)2021.png' %}" class="img-fluid" alt="">
+        </a>
+
+      </div>
+      <div class="col-sm-4 text-center sponsor-content">
+        <h1>Certificate Partner</h1>
+        <a href="https://givemycertificate.com/">
+          <img src="{%static 'img/sponsors/GMC_logo2021.png' %}" class="img-fluid" alt="">
+        </a>
+      </div>
+
+      <div class="col-sm-4 text-center sponsor-content">
+        <h1>Community Partner</h1>
+        <a href="https://www.jetbrains.com/">
+          <img src="{%static 'img/sponsors/jetbrains-variant-42021.png' %}" class="img-fluid" style="width:65%;" alt="">
+        </a>
+      </div>
+
+      <!-- yaha pe dalna hai -->
+      <div class="col-sm-4 text-center sponsor-content">
+        <h1>Technology Partner</h1>
+        <a href="https://https://kraftpixel.com/">
+          <img src="{%static 'img/sponsors/Kraftpixel.png' %}" class="img-fluid" alt="">
+        </a>
+
+      </div>
+
+      <div class="col-sm-4 text-center sponsor-content">
+        <h1>Coding Partner</h1>
+        <a href="https://codingblocks.com/">
+          <img src="{%static 'img/sponsors/coding_blocks_2021.png' %}" class="img-fluid" alt="">
+        </a>
+      </div>
+
+    </div>
+    <div class="row">
+      <div class="col-sm-6 text-center sponsor-content">
+        <h1>Knowledge Partner</h1>
+        <a href="https://www.upcomingengineer.com/">
+          <img src="{%static 'img/sponsors/upcoming_engineer_2021.png' %}" class="img-fluid" alt="">
+        </a>
+      </div>
+
+      <div class="col-sm-6 text-center sponsor-content ">
+        <h1>Media Partner</h1>
+        <a href="https://www.loksatta.com/">
+          <img src="{%static 'img/sponsors/Loksatta_-_Lokmanya_Lokshakti_Logo.gif' %}" class="img-fluid" alt="">
+        </a>
+      </div>
+    </div>
+    <br>
+    <br>
+    <!-- 2nd row ends -->
+    <!-- 3rd row start -->
+
+    <!-- <h1 style="text-align:center">Previous Hackathon Sponsors</h1><br> -->
+
+    <!-- <div class="row">
+
+      <div class="col-sm-6 text-center sponsor-content">
+        <h1>Powered By</h1>
+        <a href="https://www.unionbankonline.co.in/">
+          <img src="{%static 'img/sponsors/un_bank_2021.JPG' %}" class="img-fluid" alt="">
+        </a>
+      </div>
+      <div class="col-sm-6 text-center sponsor-content ">
+        <h1>Banking Partner</h1>
+        <a href="https://www.bccb.co.in/">
+          <img
+            src="{%static 'img/sponsors/BCCB LOGO RED SMALL BAND ENGLISH - Boiling Point Communications - 21042017.jpg' %}"
+            class="img-fluid" alt="">
+        </a>
+      </div>
+
+
+       3rd row ends -->
+    <!-- 4th row start -->
+
+    <!-- <div class="row">
+        <div class="col-sm-3 text-center sponsor-content ">
+          <h1>Coding Partner</h1>
+          <a href="https://codingblocks.com/">
+            <img src="{%static 'img/sponsors/coding_blocks_2021.png' %}" class="img-fluid" alt="">
+          </a>
+        </div>
+        <div class="col-sm-3 text-center sponsor-content">
+          <h1>Technology Partner</h1>
+          <a href="https://www.taskade.com/">
+            <img loading="lazy" src="{%static 'img/sponsors/taskade-logo2021.png' %}" class="img-fluid" alt="">
+          </a>
+        </div>
+
+        <div class="col-sm-3 text-center sponsor-content">
+          <h1>Media Partner</h1>
+          <a href="https://www.loksatta.com/">
+            <img src="{%static 'img/sponsors/Loksatta_-_Lokmanya_Lokshakti_Logo.gif' %}" class="img-fluid" alt="">
+          </a>
+        </div>
+
+        <div class="col-sm-3 text-center sponsor-content">
+          <a href="https://www.surfboardventures.com/">
+            <img src="{%static 'img/sponsors/surfboard__2021.png' %}" class="img-fluid associated" alt="">
+          </a>
+        </div>
+
+      </div> -->
+
+
+    <!-- 4th row ends -->
+    <!-- 5th row start -->
+    <!-- 
+      <div class="row">
+
+        <div class="col-sm-6 text-center sponsor-content ">
+          <a href="https://www.raweng.com/">
+            <img src="{%static 'img/sponsors/Raw Engineering__2021.png' %}" class="img-fluid" alt="">
+          </a>
+        </div>
+        <div class="col-sm-6 text-center sponsor-content">
+          <a href="https://www.contentstack.com/">
+            <img src="{%static 'img/sponsors/Contentstack_2021.png' %}" class="img-fluid" alt="">
+          </a>
+        </div>
+
+        <div class="col-sm-6 text-center sponsor-content">
+          <h1>Digital Marketing Partner</h1>
+          <a href="https://yourdigimate.in/">
+            <img src="{%static 'img/sponsors/Digimate.png' %}" class="img-fluid" alt="">
+          </a>
+        </div>
+
+        <div class="col-sm-6 text-center sponsor-content">
+          <h1>Industrial Training and Internship Partner</h1>
+          <a href="https://www.foxmula.com/" target="_blank">
+            <img src="{%static 'img/sponsors/foxmulaLogo.png' %}" class="img-fluid" alt="">
+          </a>
+        </div>
+
+      </div> -->
+    <!-- 5th row ends -->
+
+  </div>
+</section>
+<!-- Sponser Section End -->
+
+<!-- Prize Section Start -->
+<section class="section-padding" id='prizes'>
+  <div class="container-fluid">
+    <div class="section-title-header text-center">
+      <h1 class="section-title wow fadeInUp" data-wow-delay="0.2s">Prizes</h1>
+    </div>
+    <div class="d-flex justify-content-sm-around">
+
+      <div class="prize-card text-center">
+        <h3>1st Prize</h3>
+        <div class="prize-card-img">
+          <img loading="lazy" src="{%static 'img/trophy/1st.svg'%}" alt="">
+        </div>
+        <div class="prize-card-content first">
+          Rs. 25,000
+        </div>
+      </div>
+      <div class="prize-card text-center">
+        <h3>2nd Prize</h3>
+        <div class="prize-card-img">
+          <img loading="lazy" style="height: min(45.4vw, 180px)" src="{%static 'img/trophy/2nd.png'%}" alt="">
+        </div>
+        <div class="prize-card-content second">
+          Rs. 10,000
+        </div>
+      </div>
+
+    </div>
+    <div class="d-flex justify-content-sm-around">
+      <div class="prize-card text-center">
+        <h3>4th Prize</h3>
+        <div class="prize-card-img">
+          <img loading="lazy" src="{%static 'img/trophy/345.svg'%}" alt="">
+        </div>
+        <div class="prize-card-content third">
+          Rs. 5,000
+        </div>
+      </div>
+      <div class="prize-card text-center">
+        <h3>3rd Prize</h3>
+        <div class="prize-card-img">
+          <img loading="lazy" src="{%static 'img/trophy/345.svg'%}" alt="">
+        </div>
+        <div class="prize-card-content third">
+          Rs. 5,000
+        </div>
+      </div>
+      <div class="prize-card text-center">
+        <h3>5th Prize</h3>
+        <div class="prize-card-img">
+          <img loading="lazy" src="{%static 'img/trophy/345.svg'%}" alt="">
+        </div>
+        <div class="prize-card-content third">
+          Rs. 5,000
+        </div>
+      </div>
+    </div>
+</section>
+<!-- Prize Section End -->
+
+<!-- Counter Area Start-->
+
+<!-- <section class="counter-section section-padding">
+  <div class="container">
+    <div class="row"> -->
+<!-- Counter Item -->
+<!-- <div class="col-md-6 col-lg-3 col-xs-12 work-counter-widget text-center">
+        <div class="counter wow fadeInRight" data-wow-delay="0.3s">
+          <div class="icon"><i class="lni-world"></i></div>
+          <p>WiFi</p>
+          <span>The Speed you need to reach your limits.</span>
+        </div>
+      </div> -->
+<!-- Counter Item -->
+<!-- <div class="col-md-6 col-lg-3 col-xs-12 work-counter-widget text-center">
+        <div class="counter wow fadeInRight" data-wow-delay="0.6s">
+          <div class="icon"><i class="lni-code"></i></div>
+          <p>FACILITIES</p>
+          <span>Proper environment for coding competition.</span>
+        </div>
+      </div> -->
+<!-- Counter Item -->
+<!-- <div class="col-md-6 col-lg-3 col-xs-12 work-counter-widget text-center">
+        <div class="counter wow fadeInRight" data-wow-delay="0.9s">
+          <div class="icon"><i class="lni-gift"></i></div>
+          <p>Merchandise</p>
+          <span>For extra motivation.We all love gifts, don't we?</span>
+        </div>
+      </div> -->
+<!-- Counter Item -->
+<!-- <div class="col-md-6 col-lg-3 col-xs-12 work-counter-widget text-center">
+        <div class="counter wow fadeInRight" data-wow-delay="1.2s">
+          <div class="icon"><i class="lni-dinner"></i></div>
+          <p>Food</p>
+          <span>Breakfast, Lunch and Dinner along with Snacks.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section> -->
+<!-- Counter Area End-->
+
+{% comment %} Problem Statements start {% endcomment %}
+
+<section id="problem-statement" class="section-padding">
+  <div style="justify-content: center;" class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="section-title-header text-center">
+          <h1 class="section-title wow fadeInUp" data-wow-delay="0.2s">Problem Statements</h1>
+          <!--<p class="wow fadeInDown" data-wow-delay="0.2s">Global Grand Event on Digital Design</p>-->
+        </div>
+      </div>
+
+      <div class="row ">
+
+        <div class="col-lg-4">
+          <div class="flip-card" data-toggle="modal" data-target="#ps1Modal">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">
+                <img src="../../static/img/Problem Statement/Post1.png" alt="">
+              </div>
+              <div class="flip-card-back">
+                <img src="../../static/img/Problem Statement/Swipe1.png" alt="">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4  ">
+          <div class="flip-card" data-toggle="modal" data-target="#ps2Modal">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">
+                <img src="../../static/img/Problem Statement/Post2.png" alt="">
+              </div>
+              <div class="flip-card-back">
+                <img src="../../static/img/Problem Statement/Swipe2.png" alt="">
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- <div class="col-sm-3"></div> -->
+        <div class="col-lg-4 ">
+          <div class="flip-card" data-toggle="modal" data-target="#ps3Modal">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">
+                <img src="../../static/img/Problem Statement/Post3.png" alt="">
+              </div>
+              <div class="flip-card-back">
+                <img src="../../static/img/Problem Statement/Swipe3.png" alt="">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-2 "></div>
+        <div class="col-lg-4  mt-lg-5 ">
+          <div class="flip-card" data-toggle="modal" data-target="#ps4Modal">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">
+                <img src="../../static/img/Problem Statement/Post4.png" alt="">
+              </div>
+              <div class="flip-card-back">
+                <img src="../../static/img/Problem Statement/Swipe4.png" alt="">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4  mt-lg-5 ">
+          <div class="flip-card" data-toggle="modal" data-target="#ps5Modal">
+            <div class="flip-card-inner">
+              <div class="flip-card-front">
+                <img src="../../static/img/Problem Statement/Post5.png" alt="">
+              </div>
+              <div class="flip-card-back">
+                <img src="../../static/img/Problem Statement/Swipe5.png" alt="">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+</section>
+
+{% comment %} problem statement ends {% endcomment %}
+<!--PS1 MODAL-->
+<div class="modal fade" id="ps1Modal" role="dialog">
+  <div class="modal-dialog" style="margin-top: 100px">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header" style="background-color:#f5f5f5;color:white;">
+        <h4 class="modal-title" style="color:#555555;">More Details</h4>
+      </div>
+      <div class="modal-body">
+        <p style="font-size:1.15rem"> <b> Description:</b>
+        </p>
+        <p style="font-size:1rem">
+          Creating one single place to store and manage all of the users’ bills from various different places and
+          thereby providing insights on the spending habits by their analysis.
+        </p>
+        <br>
+        <p style="font-size:1.15rem"><b>Expected Features:</b> </p>
+        <ul style="font-size:1rem">
+          <li> - Collect all the bills online or offline. E.g. Grocery, Utility, Restaurants, Paper, etc.</li>
+          <li> - Scan printed bills.</li>
+          <li> - Automatically segregate item-wise data</li>
+          <li> - Analysis of bills per month or quaterly</li>
+        </ul>
+
+      </div>
+      <div class="modal-footer" style="background-color:#f5f5f5;color:white;">
+        <button type="button" class="btn payment-btns btn-common btn-rounded" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--MODAL End-->
+<!--PS5 MODAL-->
+<div class="modal fade" id="ps2Modal" role="dialog">
+  <div class="modal-dialog" style="margin-top: 100px">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header" style="background-color:#f5f5f5;color:white;">
+        <h4 class="modal-title" style="color:#555555;">More Details</h4>
+      </div>
+      <div class="modal-body">
+        <p style="font-size:1.15rem"> <b> Description:</b>
+        </p>
+        <p style="font-size:1rem">
+          Creating a single user friendly dashboard essentially fulfilling all needs of the user by providing valuable
+          information like availability of ICU beds, oxygen, ambulances and even the patient status all in one place.
+        </p>
+        <br>
+        <p style="font-size:1.15rem"><b>Expected Features:</b> </p>
+        <ul style="font-size:1rem">
+          <li> - Check availability of Beds, Oxygen, ICU beds, Ambulances</li>
+          <li> - Check patient status, etc.</li>
+        </ul>
+
+      </div>
+      <div class="modal-footer" style="background-color:#f5f5f5;color:white;">
+        <button type="button" class="btn payment-btns btn-common btn-rounded" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--MODAL End-->
+<!--PS5 MODAL-->
+<div class="modal fade" id="ps3Modal" role="dialog">
+  <div class="modal-dialog" style="margin-top: 100px">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header" style="background-color:#f5f5f5;color:white;">
+        <h4 class="modal-title" style="color:#555555;">More Details</h4>
+      </div>
+      <div class="modal-body">
+        <p style="font-size:1.15rem"> <b> Description:</b>
+        </p>
+        <p style="font-size:1rem">
+          Solving all the hassle that a student has to go through during the admission process by providing personalised
+          recommendations after analysing various factors like location, grades, etc.
+        </p>
+        <br>
+        <p style="font-size:1.15rem"><b>Expected Features:</b> </p>
+        <ul style="font-size:1rem">
+          <li> - Scrapping data from all sources like college website, social media, other websites, news, etc.</li>
+          <li> - Analysis of all data.</li>
+          <li> - Based on all data and also other data like physical location, branch, marks recommend college</li>
+        </ul>
+
+      </div>
+      <div class="modal-footer" style="background-color:#f5f5f5;color:white;">
+        <button type="button" class="btn payment-btns btn-common btn-rounded" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--MODAL End-->
+<!--PS5 MODAL-->
+<div class="modal fade" id="ps4Modal" role="dialog">
+  <div class="modal-dialog" style="margin-top: 100px">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header" style="background-color:#f5f5f5;color:white;">
+        <h4 class="modal-title" style="color:#555555;">More Details</h4>
+      </div>
+      <div class="modal-body">
+        <p style="font-size:1.15rem"> <b> Description:</b>
+        </p>
+        <p style="font-size:1rem">
+          Building a streamlined approach for taking precautionary measures in situations like floods. Using real-time
+          collected data to prevent or to judge the intensity of the natural calamities.</p>
+        </p>
+        <br>
+        <p style="font-size:1.15rem"><b>Expected Features:</b> </p>
+        <ul style="font-size:1rem">
+          <li> - Common people will upload actual photos of water logging.</li>
+          <li> - System will collect photographs and create a database.</li>
+          <li> - System should be able to detect water level at the location at the time. </li>
+          <li> - Compare time-based data</li>
+        </ul>
+
+
+      </div>
+      <div class="modal-footer" style="background-color:#f5f5f5;color:white;">
+        <button type="button" class="btn payment-btns btn-common btn-rounded" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--MODAL End-->
+<!--PS5 MODAL-->
+<div class="modal fade" id="ps5Modal" role="dialog">
+  <div class="modal-dialog" style="margin-top: 100px">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header" style="background-color:#f5f5f5;color:white;">
+        <h4 class="modal-title" style="color:#555555;">More Details</h4>
+      </div>
+      <div class="modal-body">
+        <p style="font-size:1.15rem"> <b> Description:</b>
+        </p>
+        <p style="font-size:1rem">
+
+          Developing a tech-based solution to provide real-time traffic updates on traffic congestion and unusual
+          traffic incidents. To resolve the conflicting demands of all road and transport users.
+        </p>
+        <br>
+        <p style="font-size:1.15rem"><b>Expected Features:</b> </p>
+        <ul style="font-size:1rem">
+          <li> - Traffic Analysis Based on Real Time Video</li>
+          <li> - Analyse traffic on various routes</li>
+          <li> - Re-route traffic by using signalling system to load-balancing</li>
+        </ul>
+
+      </div>
+      <div class="modal-footer" style="background-color:#f5f5f5;color:white;">
+        <button type="button" class="btn payment-btns btn-common btn-rounded" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--MODAL End-->
+<!-- Event Slides Section Start -->
+<section id="event-slides" class="section-padding">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="section-title-header text-center">
+          <h1 class="section-title wow fadeInUp" data-wow-delay="0.2s">Event Guideline</h1>
+          <!--<p class="wow fadeInDown" data-wow-delay="0.2s">Global Grand Event on Digital Design</p>-->
+        </div>
+      </div>
+
+      <div class="col-12 wow fadeInRight" data-wow-delay="0.3s">
+        <h2 class="intro-title">RULES</h2>
+        <ul class="list-specification">
+          <li><i class="lni-check-mark-circle"></i> The VCET Hackathon will take place on <span class="highlighted">1st
+              & 2nd October 2021.</span></li>
+          <li><i class="lni-check-mark-circle"></i> A team can consist of 1 to 4 members. Every member of the team must
+            be a student of a university or a college. A team can have members from different colleges.</li>
+          <li><i class="lni-check-mark-circle"></i> Entry fees is <span class="highlighted">Rs.500 </span> per team.
+          </li>
+          <li><i class="lni-check-mark-circle"></i> Participants are free to use open standard repositories, APIs and
+            publically available libraries.</li>
+          <li><i class="lni-check-mark-circle"></i> Progress of the project will be tracked during Hackathon. Use of
+            readymade code or precompiled code will lead to disqualification.</li>
+          <li><i class="lni-check-mark-circle"></i> Participants are expected to behave professionally and responsibly.
+          </li>
+          <li><i class="lni-check-mark-circle"></i> Decisions made by organizers and judges are final.</li>
+
+          <li><i class="lni-check-mark-circle"></i> Participants will have to submit abstracts for all five problem
+            statements.</li>
+          <li><i class="lni-check-mark-circle"></i> All updates regarding the event will be posted on Social Media
+            handles as
+            well as mailed to each team.</li>
+        </ul>
+      </div>
+      <div class="col-12">
+        <a href="{%url 'student_form'%}" class="btn btn-common">REGISTER NOW</a>
+      </div>
+      <div class="col-12 wow fadeInLeft" data-wow-delay="0.3s">
+        <br>
+        <br>
+        <h2 class="intro-title">REGISTRATION</h2>
+        <ul class="list-specification">
+          <li><i class="lni-check-mark-circle"></i> Submit your abstract/solution consisting of- Implementation,
+            Features and Technology Stack.</li>
+          <li><i class="lni-check-mark-circle"></i> Check out the sample abstract<a href="" type="button"
+              class="btn-outline-light btn-sm" data-toggle="modal" data-target="#abstractModal"><span
+                class="highlighted"> here</span> </a></li>
+          <li><i class="lni-check-mark-circle"></i> Problem Statements will be provided from our end.</li>
+          <li><i class="lni-check-mark-circle"></i> It is mandatory for participants to submit abstracts for <span
+              class="highlighted">all 5 Problem Statements</span>, out of which 1 will be allocated and notified to each
+            team one day prior via email.</li>
+
+          <li><i class="lni-check-mark-circle"></i> NOTE: The order preference of the problem statements is solely for
+            our reference. We<span class="highlighted"> do not assure </span>that the topic allocation will be based on
+            your top preferences only.</li>
+          <li><i class="lni-check-mark-circle"></i> Last date for submission of abstract is <span
+              class="highlighted">September 23, 2021</span>.</li>
+          <li><i class="lni-check-mark-circle"></i> The selected teams will get a confirmation by <span
+              class="highlighted">September 24, 2021</span>.</li>
+          <li><i class="lni-check-mark-circle"></i> Payment for the selected teams i.e. Rs.500 per team should be made
+            by
+            <span class='highlighted'> September 26, 2021. </span>Entry fee payment of the entire team should be done in
+            a single transaction.
+          </li>
+          <li><i class="lni-check-mark-circle"></i> Out of the 5 problem statements submitted, the final Problem
+            Statement for your team will be disclosed on <span class="highlighted">September 30, 2021.</span>
+          </li>
+          <li><i class="lni-check-mark-circle"></i> Further details will be provided in email.</li>
+          <li><i class="lni-check-mark-circle"></i> Following are the details of payment</li>
+        </ul>
+      </div>
+      <div class="col-12">
+        <a href="form.html" class="btn btn-common btn-pay" data-toggle="modal" data-target="#neftModal">NEFT</a>
+        <a href="form.html" class="btn btn-common btn-pay" data-toggle="modal" data-target="#upiModal">UPI</a>
+        <!-- <a href="form.html" class="btn btn-common btn-pay" data-toggle="modal" data-target="#cashModal">CASH</a> -->
+      </div>
+    </div>
+  </div>
+
+
+</section>
+<!-- Event Slides Section End -->
+
+<!--MODAL Start-->
+
+<!-- Sample Abstract Model -->
+<div class="modal fade" id="abstractModal">
+  <div class="modal-dialog" style="margin-top: 100px">
+    <div class="modal-content">
+
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <!-- <h4 class="modal-title">Sample Abstract</h4> -->
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+      </div>
+
+      <!-- Modal body -->
+      <div class="modal-body">
+        <p> <b> Problem statement:</b> Solving the problem of keeping track of student’s attendance, scores and
+          other important information, deriving meaningful results, insights from the data by building a
+          tech solution for the same.</p>
+
+        <p><b>Abstract:</b> The solution would be an android application that would perform automation
+          operations such as sending automated text to parents on low attendance, calculating scores,
+          submitting the results to Placement cell, identifying their weak areas if scored low on a test, etc.</p>
+
+        <!-- <p><b>Domain:-</b> App Development & Web Development</p>
+
+        <p><b>Features:-</b> Analytics, Intuitive UI, Real time notiications, Student Dashboard, Authentication &
+          Authorization</p> -->
+
+        <!-- <p><b>Tech Stack:-</b> Java, MySql, node.js, AWS, FCM, Git, Github</p> -->
+      </div>
+
+      <!-- Modal footer -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+<!--NEFT MODAL-->
+<div class="modal fade" id="neftModal" role="dialog" style="display: none;" aria-hidden="true">
+  <div class="modal-dialog" style="margin-top: 100px">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header" style="background-color:#f5f5f5;color:white;">
+        <h4 class="modal-title" style="color:#555555;">Details for NEFT</h4>
+      </div>
+      <div class="modal-body" style="background-color:#f5f5f5;color:white;">
+        <p style="color: #555555">Account Name: YOGESH NARENDRA JAIN <br>Branch: Mira Road<br>
+          <br>A/C No: 012010110009481<br>IFSC: BKID0000120
+        </p>
+        <p style="color: #555555">Payment should be done by single transaction per team.</p>
+      </div>
+      <div class="modal-footer" style="background-color:#f5f5f5;color:white;">
+        <button type="button" class="btn payment-btns btn-common btn-rounded" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--CASH MODAL-->
+<div class="modal fade" id="cashModal" role="dialog">
+  <div class="modal-dialog" style="margin-top: 100px">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header" style="background-color:#f5f5f5;color:white;">
+        <h4 class="modal-title" style="color: #555555;">Details for Cash</h4>
+      </div>
+      <div class="modal-body" style="background-color:#f5f5f5;color:white;">
+        <p style="color: #555555">For cash payment, please contact following co-ordinators.</p>
+        <p style="color: #555555">Ravikanth Sharma : +91 90299 8675</p>
+        <p style="color: #555555">Mohanish Bharambe : +91 88066 15247</p>
+      </div>
+      <div class="modal-footer" style="background-color:#f5f5f5;color:white;">
+        <button type="button" class="btn payment-btns btn-common btn-rounded" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--UPI MODAL-->
+<div class="modal fade" id="upiModal" role="dialog">
+  <div class="modal-dialog" style="margin-top: 100px">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header" style="background-color:#f5f5f5;color:white;">
+        <h4 class="modal-title" style="color:#555555;">Details for UPI</h4>
+      </div>
+      <div class="modal-body" style="background-color:#f5f5f5;color:white;">
+        <p style="color: #555555">yogeshj591@okaxis</p>
+        <!-- <p style="color: #555555">Account Name: VCET<br>Bank: UNION BANK OF INDIA<br>Branch: Vidyavardhini College
+          Road
+          <br>A/C No: 320602011001031<br>IFSC: UBIN0562556</p>
+        <p style="color: #555555">Payment should be done by single transaction per team. Carry your Transaction
+          ID and Bank Details on the day of Hackathon. </p> -->
+      </div>
+      <div class="modal-footer" style="background-color:#f5f5f5;color:white;">
+        <button type="button" class="btn payment-btns btn-common btn-rounded" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!--MODAL End-->
+
+<!-- Schedule Section Start -->
+<section id="schedules" class="schedule section-padding">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="section-title-header text-center">
+          <h1 class="section-title wow fadeInUp" data-wow-delay="0.2s">Schedules</h1>
+          <!--<p class="wow fadeInDown" data-wow-delay="0.2s">Lorem ipsum dolor sit amet, consectetur adipiscing <br> elit, sed do eiusmod tempor</p>-->
+        </div>
+      </div>
+    </div>
+    <div class="schedule-area row wow fadeInDown" data-wow-delay="0.3s">
+      <div class="schedule-tab-title col-md-3 col-lg-3 col-xs-12">
+        <div class="table-responsive">
+          <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item">
+              <a class="nav-link active" id="monday-tab" data-toggle="tab" href="#monday" role="tab"
+                aria-controls="monday" aria-expanded="true">
+                <div class="item-text">
+                  <h4>Friday</h4>
+                  <h5>1st October</h5>
+                </div>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" id="tuesday-tab" data-toggle="tab" href="#tuesday" role="tab" aria-controls="tuesday">
+                <div class="item-text">
+                  <h4>Saturday</h4>
+                  <h5>2nd October</h5>
+                </div>
+              </a>
+            </li>
+
+          </ul>
+        </div>
+      </div>
+      <div class="schedule-tab-content col-md-9 col-lg-9 col-xs-12 clearfix">
+        <div class="tab-content" id="myTabContent">
+          <div class="tab-pane fade show active" id="monday" role="tabpanel" aria-labelledby="monday-tab">
+            <div id="accordion">
+              <div class="card">
+                <div id="headingOne">
+                  <div class="collapsed card-header" data-toggle="collapse" data-target="#collapseOne"
+                    aria-expanded="false" aria-controls="collapseOne">
+                    <div class="images-box">
+                      <img loading="lazy" class="img-fluid" src="{%static 'img/inaug-min.png'%}" alt="">
+                    </div>
+                    <span class="time">07:30 AM</span>
+                    <h4>Inauguration</h4>
+                    <br>
+                    <!--<h5 class="name">David Warner</h5>-->
+                  </div>
+                </div>
+                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                  <div class="card-body">
+                    <p> Inauguration of the Hackathon Event will be done by the Chief Guest, Principal Sir & all our
+                      Faculty Members. </p>
+                    <!-- <div class="location">
+                      <span>Location:</span> Labs
+                    </div> -->
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <div id="headingTwo">
+                  <div class="collapsed card-header" data-toggle="collapse" data-target="#collapseTwo"
+                    aria-expanded="false" aria-controls="collapseTwo">
+                    <div class="images-box">
+                      <img loading="lazy" class="img-fluid" src="{%static 'img/code-min.png'%}" alt="">
+                    </div>
+                    <span class="time">08 AM </span>
+                    <h4>HACKATHON’21 RELOADED Coding Begins</h4>
+                    <h5 class="name">All participants are expected to start working on their projects</h5>
+                  </div>
+                </div>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                  <div class="card-body">
+                    <p>Inauguration of the Hackathon Event will be done by the Chief Guest, Principal Sir & all our
+                      Faculty Members.</p>
+                    <!-- <div class="location">
+                      <span>Location:</span> Seminar Hall
+                    </div> -->
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <div id="headingTwo">
+                  <div class="collapsed card-header" data-toggle="collapse" data-target="#collapseThree"
+                    aria-expanded="false" aria-controls="collapseThree">
+                    <div class="images-box">
+                      <img loading="lazy" class="img-fluid" src="{%static 'img/judge-min.png'%}" alt="">
+                    </div>
+                    <span class="time">5 PM </span>
+                    <h4>First Jury Round</h4>
+                    <h5 class="name">Teams are required to explain their progress so far. </h5>
+                  </div>
+                </div>
+                <div id="collapseThree" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                  <div class="card-body">
+                    <p>Participants are expected to explain their progress in work till the first jury round as well as
+                      answer the Jury’s questions.</p>
+                    <!-- <div class="location">
+                      <span>Location:</span> Seminar Hall
+                    </div> -->
+                  </div>
+                </div>
+              </div>
+              <!-- <div class="card">
+                <div id="headingFour">
+                  <div class="collapsed card-header" data-toggle="collapse" data-target="#collapseFour"
+                    aria-expanded="false" aria-controls="collapseFour">
+                    <div class="images-box">
+                      <img loading="lazy" class="img-fluid" src="{%static 'img/judge-min.png'%}" alt="">
+                    </div>
+                    <span class="time">06 PM </span>
+                    <h4>Second Jury Round</h4>
+                    <h5 class="name">By: Invited Judges.</h5>
+                  </div>
+                </div>
+                <div id="collapseFour" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                  <div class="card-body">
+                    <p>Participants are expected to explain their progress in work till the second jury round as well as
+                      answer the Jury’s questions.</p>
+                    <!-- <div class="location">
+                      <span>Location:</span> Seminar Hall
+                    </div> -->
+              <!-- </div>
+                </div> -->
+              <!-- </div> -->
+
+            </div>
+          </div>
+          <div class="tab-pane fade" id="tuesday" role="tabpanel" aria-labelledby="tuesday-tab">
+            <div id="accordion2">
+              <div class="card">
+                <div id="headingOne1">
+                  <div class="collapsed card-header" data-toggle="collapse" data-target="#collapseOne1"
+                    aria-expanded="false" aria-controls="collapseOne1">
+                    <div class="images-box">
+                      <img loading="lazy" class="img-fluid" src="{%static 'img/judge-min.png'%}" alt="">
+                    </div>
+                    <span class="time">08 AM</span>
+                    <h4>Second Jury Round</h4>
+                    <h5 class="name">By: Invited Judges.</h5>
+                  </div>
+                </div>
+                <div id="collapseOne1" class="collapse show" aria-labelledby="headingOne1" data-parent="#accordion2">
+                  <div class="card-body">
+                    <p>Teams are expected to complete 60% of their work and explain the further implementation of their
+                      project.</p>
+                    <!-- <div class="location">
+                      <span>Location:</span> Labs
+                    </div> -->
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <div id="headingTwo2">
+                  <div class="collapsed card-header" data-toggle="collapse" data-target="#collapseTwo2"
+                    aria-expanded="false" aria-controls="collapseTwo2">
+                    <div class="images-box">
+                      <img loading="lazy" class="img-fluid" src="{%static 'img/code-min.png'%}" alt="">
+                    </div>
+                    <span class="time">02 PM</span>
+                    <h4>HACKATHON’21 RELOADED - Coding Ends & Judging Round Begins</h4>
+                    <h5 class="name">By: Invited Judges.</h5>
+                  </div>
+                </div>
+                <div id="collapseTwo2" class="collapse" aria-labelledby="headingTwo2" data-parent="#accordion2">
+                  <div class="card-body">
+                    <p>Participants should stop coding and prepare for final presentatation</p>
+                    <!-- <div class="location">
+                      <span>Location:</span> Seminar Hall
+                    </div> -->
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <div id="headingTwo2">
+                  <div class="collapsed card-header" data-toggle="collapse" data-target="#collapseThree3"
+                    aria-expanded="false" aria-controls="collapseThree3">
+                    <div class="images-box">
+                      <img class="img-fluid" src="{%static 'img/medal.png'%}" alt="">
+                    </div>
+                    <span class="time">04 PM</span>
+                    <h4>Announcements of Finalists</h4>
+                    <h5 class="name">By: Invited Judges.</h5>
+                  </div>
+                </div>
+                <div id="collapseThree3" class="collapse" aria-labelledby="headingTwo2" data-parent="#accordion2">
+                  <div class="card-body">
+                    <p>Finalist teams will be declared which will proceed for Pitching Round.</p>
+                    <!-- <div class="location">
+                      <span>Location:</span> Seminar Hall
+                    </div> -->
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <div id="headingTwo2">
+                  <div class="collapsed card-header" data-toggle="collapse" data-target="#collapseFour4"
+                    aria-expanded="false" aria-controls="collapseFour4">
+                    <div class="images-box">
+                      <img class="img-fluid" src="{%static 'img/pitch.png'%}" alt="">
+                    </div>
+                    <span class="time">04 PM</span>
+                    <h4>Pitching Round Begins</h4>
+                    <h5 class="name">Finale Round</h5>
+                  </div>
+                </div>
+                <div id="collapseFour4" class="collapse" aria-labelledby="headingTwo2" data-parent="#accordion2">
+                  <div class="card-body">
+                    <p>Teams are required to explain their project with the help of a PowerPoint presentation and
+                      demonstrate the same.</p>
+                    <!-- <p>Pitching Round for the Finalists from which the Winners will be declared.</p> -->
+                    <!-- <div class="location">
+                      <span>Location:</span> Seminar Hall
+                    </div> -->
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Schedule Section End -->
+
+<!-- Gallery Section Start -->
+<section id="gallery" class="section-padding">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="section-title-header text-center">
+          <h1 class="section-title wow fadeInUp" data-wow-delay="0.2s">our event gallery</h1>
+          <!--<p class="wow fadeInDown" data-wow-delay="0.2s">Global Grand Event on Digital Design</p>-->
+        </div>
+      </div>
+    </div>
+
+    <div class="row left-positioning">
+      <div class="col-md-5">
+        <img loading="lazy" src="{%static 'img/winners.jpg'%}" class="img-fluid" alt="">
+      </div>
+      <div class="col-md-7">
+        <button class="btn btn-common">Oct 13, 2017</button>
+        <div class="content">
+          <ul class='tabs'>
+            <li><a href="">23 Teams</a></li>
+            <li><a href="">6 Finalists</a></li>
+            <li><a href="">Prize worth Rs.40,000</a></li>
+          </ul>
+          <ul class='tabs'>
+            <li><a href="">1st St. John</a></li>
+            <li><a href="">2nd DJ Sanghvi</a></li>
+            <li><a href="">3rd VCET</a></li>
+          </ul>
+          <br>
+          <h5><b>THE INITIAL STAGE ! </b></h5>
+          <p>
+            This was the first time that VCET was organising Hackathon and which went on to be one of the most
+            successful events of the college. VCET's Hackathon 2017 saw 23 teams consisting of 65 participants competing
+            against each other for 30 hours showcasing their Coding prowess to solve a Real World problem through their
+            working prototypes.
+            <br>
+            The final day saw the 6 finalists pitching their unique ideas with working solutions before the judges. Out
+            of which the Top 3 teams emerged as the winners of the very first edition of VCET's Hackathon winning cash
+            prizes worth 40,000 INR.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="row right-positioning">
+      <div class="col-md-5">
+        <img loading="lazy" src="{%static 'img/car3-min.png'%}" class="img-fluid hackathon-2018" alt="">
+      </div>
+      <div class="col-md-7">
+        <button class="btn btn-common">Oct 5, 2018</button>
+        <div class="content">
+          <ul class='tabs'>
+            <li><a href="">36 Teams</a></li>
+            <li><a href="">8 Finalists</a></li>
+            <li><a href="">Prize worth Rs.40,000</a></li>
+          </ul>
+          <ul class='tabs'>
+            <li><a href="">1st Team Revamp</a></li>
+            <li><a href="">2nd Team Droidbox</a></li>
+            <li><a href="">3rd Team Elite++</a></li>
+          </ul>
+          <br>
+          <h5><b>SECOND ANNUAL ! </b></h5>
+          <p>
+            Hackathon 2018 which was followed by the next year turned out much more successful than the previous year.
+            This year the number of teams went up to 36 from 23, which was in the Inaugural year. Participants came up
+            with solutions to real world problems by showcasing their Coding prowess.
+            <br>
+            Apart from monetary prizes, students got Internship as well as an enriching experience of building a working
+            prototype which gives a great credibility to the designing and development skills of the participants and
+            adds value to their resume.
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="row left-positioning">
+      <div class="col-md-5">
+        <img loading="lazy" src="{%static 'img/Hackathon_2019.jpg'%}" class="img-fluid hackathon-2019" alt="">
+      </div>
+      <div class="col-md-7">
+        <button class="btn btn-common">Sept 27 & 28, 2019</button>
+        <div class="content">
+          <ul class='tabs'>
+            <li><a href="">40 Teams</a></li>
+            <li><a href="">10 Finalists</a></li>
+            <li><a href="">Prize worth Rs.50,000</a></li>
+          </ul>
+          <ul class='tabs'>
+            <li><a href="">1<sup>st</sup> Fr. Conceicao Rodrigues</a></li>
+            <li><a href="">2<sup>nd</sup> DJ Sanghvi</a></li>
+            <li><a href="">3<sup>rd</sup> DJ Sanghvi</a></li>
+          </ul>
+          <br>
+          <h5><b>THREE'S A CHARM !</b></h5>
+          <p>
+            Hackathon 2019 saw a grand success as always.
+            The event witnessed an overwhelming response with 40 teams summing up to 140 participants. There were
+            participants from 16 different colleges. The shortlisted teams had to go through a ten minutes presentation
+            and a three minutes question and answer session wherein the teams were bombarded with insightful questions,
+            constructive criticism and all possible suggestions by the judges in the final pitching elaborating their
+            project ideas. There were consolation prizes as well by our generous sponsors. Participant’s got
+            certificates as well as some exciting goodies.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="row right-positioning">
+      <div class="col-md-5">
+        <img loading="lazy" src="{%static 'img/Screenshot_2021.png'%}" class="img-fluid hackathon-2018 " alt="">
+      </div>
+      <div class="col-md-7">
+        <button class="btn btn-common">MAR 19 & 20, 2021</button>
+        <div class="content">
+          <ul class='tabs'>
+            <li><a href="">39 Teams</a></li>
+            <li><a href="">138 Participants</a></li>
+            <li><a href="">10 Finalists</a></li>
+            <li><a href="">Prize worth Rs.50,000</a></li>
+          </ul>
+          <ul class='tabs'>
+            <li><a href="">1st LINKERS</a></li>
+            <li><a href="">2nd NEURONS</a></li>
+            <li><a href="">3rd UKKU</a></li>
+          </ul>
+          <br>
+          <h5><b>EVEN THE PANDEMIC COULDN'T STOP US!</b></h5>
+          <p>
+            The first ever Virtual Hackathon of our college organised by the Department of Information Technology was
+            conducted on the 19th & 20th of March, 2021. Despite several challenges that a virtual event comes with,
+            Hackathon’21 witnessed an overwhelming response with participants from Coimbatore, Hubli, Chennai, Nagpur,
+            etc. Absence of a Geographical Barrier resulted in the participation of teams from all over the country
+            leading to an even more exhilarating coding contest.Various rewards including internships, premium
+            memberships, etc., along with the promised cash prize were awarded to the winners.
+            In a nutshell, VCET HACKATHON’2021 proved to be another feather in our cap.
+
+          </p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+
+
+</section>
+<!-- Gallery Section End -->
+
+<!-- Gallary Section Start
+<section id="gallery" class="section-padding">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="section-title-header text-center">
+          <h1 class="section-title wow fadeInUp" data-wow-delay="0.2s">our event gallery</h1>
+          <p class="wow fadeInDown" data-wow-delay="0.2s">Global Grand Event on Digital Design</p>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="ccol-md-6 col-sm-6 col-lg-4">
+        <div class="gallery-box">
+          <div class="img-thumb">
+            <img loading="lazy" class="img-fluid" src="{%static 'img/medal-min.png'%}" alt="">
+          </div>
+          <div class="overlay-box text-center">
+            <a class="lightbox" href="{%static 'img/medal-min.png'%}">
+              <i class="lni-plus"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-sm-6 col-lg-4">
+        <div class="gallery-box">
+          <div class="img-thumb">
+            <img loading="lazy" class="img-fluid" src="{%static 'img/inaug-min.png'%}" alt="">
+          </div>
+          <div class="overlay-box text-center">
+            <a class="lightbox" href="{%static 'img/inaug-min.png'%}">
+              <i class="lni-plus"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="ccol-md-6 col-sm-6 col-lg-4">
+        <div class="gallery-box">
+          <div class="img-thumb">
+            <img loading="lazy" class="img-fluid" src="{%static 'img/car1-square-min.png'%}" alt="">
+          </div>
+          <div class="overlay-box text-center">
+            <a class="lightbox" href="{%static 'img/car1-min.png'%}">
+              <i class="lni-plus"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="ccol-md-6 col-sm-6 col-lg-4">
+        <div class="gallery-box">
+          <div class="img-thumb">
+            <img loading="lazy" class="img-fluid" src="{%static 'img/code-min.png'%}" alt="">
+          </div>
+          <div class="overlay-box text-center">
+            <a class="lightbox" href="{%static 'img/code-min.png'%}">
+              <i class="lni-plus"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="ccol-md-6 col-sm-6 col-lg-4">
+        <div class="gallery-box">
+          <div class="img-thumb">
+            <img loading="lazy" class="img-fluid" src="{%static 'img/pitch-min.png'%}" alt="">
+          </div>
+          <div class="overlay-box text-center">
+            <a class="lightbox" href="{%static 'img/pitch-min.png'%}">
+              <i class="lni-plus"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div class="ccol-md-6 col-sm-6 col-lg-4">
+        <div class="gallery-box">
+          <div class="img-thumb">
+            <img loading="lazy" class="img-fluid" src="{%static 'img/car3-square-min.png'%}" alt="">
+          </div>
+          <div class="overlay-box text-center">
+            <a class="lightbox" href="{%static 'img/car3-min.png'%}">
+              <i class="lni-plus"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+        <div class="row justify-content-center mt-3">
+          <div class="col-xs-12">
+            <a href="#" class="btn btn-common">Browse All</a>
+          </div>
+        </div>
+  </div>
+</section>
+  Gallary Section End -->
+
+<!-- Ask Question Section Start -->
+<section id="faq" class="section-padding">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="section-title-header text-center">
+          <h1 class="section-title wow fadeInUp" data-wow-delay="0.2s">FAQ?</h1>
+          <!--<p class="wow fadeInDown" data-wow-delay="0.2s">Global Grand Event on Digital Design</p>-->
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-xs-12 col-sm-12">
+        <div class="accordion">
+          <div class="card">
+            <div class="card-header" id="headingOne">
+              <div class="header-title" data-toggle="collapse" data-target="#questionOne" aria-expanded="true"
+                aria-controls="collapseOne">
+                <i class="lni-pencil"></i> What is the mode of the Hackathon?
+              </div>
+            </div>
+            <div id="questionOne" class="collapse" aria-labelledby="headingOne" data-parent="#question">
+              <div class="card-body">
+                VCET Hackathon’21 Reloaded will be held online.
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header" id="headingTwo">
+              <div class="header-title" data-toggle="collapse" data-target="#questionTwo" aria-expanded="false"
+                aria-controls="questionTwo">
+                <i class="lni-pencil"></i> Who can participate?
+              </div>
+            </div>
+            <div id="questionTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#question">
+              <div class="card-body">
+                Anyone is welcome to participate in this event. While experienced coding and programming
+                is a huge plus, teams will also need people with strong presentation skills and unique ideas.
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header" id="headingThree">
+              <div class="header-title" data-toggle="collapse" data-target="#questionThree" aria-expanded="false"
+                aria-controls="questionThree">
+                <i class="lni-pencil"></i> Can a pass out student participate in the event?
+              </div>
+            </div>
+            <div id="questionThree" class="collapse" aria-labelledby="headingThree" data-parent="#question">
+              <div class="card-body">
+                No, every member of the team must be a current student of a university or a college.
+                (Members from different colleges allowed).
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header" id="headingThree">
+              <div class="header-title" data-toggle="collapse" data-target="#questionFour" aria-expanded="false"
+                aria-controls="questionFour">
+                <i class="lni-pencil"></i> What are the Problems Statements that can be selected?
+              </div>
+            </div>
+            <div id="questionFour" class="collapse" aria-labelledby="headingThree" data-parent="#question">
+              <div class="card-body">
+                Problem Statements will be provided from our end. You have to submit abstracts for all 5
+                Problem Statements, out of which 1 will be allocated.
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header" id="headingThree">
+              <div class="header-title" data-toggle="collapse" data-target="#questionFive" aria-expanded="false"
+                aria-controls="questionFive">
+                <i class="lni-pencil"></i> How much is the entry fee and the last date for registration?
+              </div>
+            </div>
+            <div id="questionFive" class="collapse" aria-labelledby="headingThree" data-parent="#question">
+              <div class="card-body">
+                Entry fee is 500/- per team and the last date of registration is September 19, 2021.
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header" id="headingThree">
+              <div class="header-title" data-toggle="collapse" data-target="#questionSix" aria-expanded="false"
+                aria-controls="questionSix">
+                <i class="lni-pencil"></i> Which payment methods do you accept?
+              </div>
+            </div>
+            <div id="questionSix" class="collapse" aria-labelledby="headingThree" data-parent="#question">
+              <div class="card-body">
+                Online payments via NEFT/UPI will be accepted.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-xs-12 col-sm-12">
+        <div class="accordion">
+          <div class="card">
+            <div class="card-header" id="headingOne2">
+              <div class="header-title" data-toggle="collapse" data-target="#questionOne2" aria-expanded="true"
+                aria-controls="collapseOne">
+                <i class="lni-pencil"></i> Will a dataset be provided?
+              </div>
+            </div>
+            <div id="questionOne2" class="collapse" aria-labelledby="headingOne" data-parent="#question">
+              <div class="card-body">
+                No, the data has to be collected on your own.
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header" id="headingTwo2">
+              <div class="header-title" data-toggle="collapse" data-target="#questionTwo2" aria-expanded="false"
+                aria-controls="questionTwo">
+                <i class="lni-pencil"></i> What is the selection criteria?
+              </div>
+            </div>
+            <div id="questionTwo2" class="collapse" aria-labelledby="headingTwo" data-parent="#question">
+              <div class="card-body">
+                Innovation, Technology, Completion & Business Values are some of the criterias.
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header" id="headingThree">
+              <div class="header-title" data-toggle="collapse" data-target="#questionThree2" aria-expanded="false"
+                aria-controls="questionThree2">
+                <i class="lni-pencil"></i> On which platform will the event be conducted?
+              </div>
+            </div>
+            <div id="questionThree2" class="collapse" aria-labelledby="headingThree" data-parent="#question">
+              <div class="card-body">
+                Google Meet, YouTube live streaming and Discord.
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header" id="headingThree">
+              <div class="header-title" data-toggle="collapse" data-target="#questionFour2" aria-expanded="false"
+                aria-controls="questionFour2">
+                <i class="lni-pencil"></i> When and where will the final results be announced?
+              </div>
+            </div>
+            <div id="questionFour2" class="collapse" aria-labelledby="headingThree" data-parent="#question">
+              <div class="card-body">
+                Results will be announced at the end of the Final Pitching round. (Google Meet & YouTube
+                live stream)
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header" id="headingThree">
+              <div class="header-title" data-toggle="collapse" data-target="#questionFive2" aria-expanded="false"
+                aria-controls="questionFive2">
+                <i class="lni-pencil"></i> What is the cancellation policy like?
+              </div>
+            </div>
+            <div id="questionFive2" class="collapse" aria-labelledby="headingThree" data-parent="#question">
+              <div class="card-body">
+                There is no cancellation policy and payment once done will not be refunded.
+              </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header" id="headingThree">
+              <div class="header-title" data-toggle="collapse" data-target="#questionSix2" aria-expanded="false"
+                aria-controls="questionSix2">
+                <i class="lni-pencil"></i> Having another questions that is not answered in the FAQs?
+              </div>
+            </div>
+            <div id="questionSix2" class="collapse" aria-labelledby="headingThree" data-parent="#question">
+              <div class="card-body">
+                You can contact us via mail or drop your query in the comment sections on our Social Media
+                handles.
+              </div>
+            </div>
+          </div>
+          <!-- <div class="card">
+            <div class="card-header" id="headingThree">
+              <div class="header-title" data-toggle="collapse" data-target="#questionSeven2" aria-expanded="false"
+                aria-controls="questionSix2">
+                <i class="lni-pencil"></i> If I have another question that is not answered in the FAQs?
+              </div>
+            </div>
+            <div id="questionSeven2" class="collapse" aria-labelledby="headingThree" data-parent="#question">
+              <div class="card-body">
+                You can contact us via mail or drop your query in the comment sections on our Social Media
+handles.
+              </div>
+            </div>
+          </div> -->
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Ask Question Section End -->
+
+<!-- Map Section Start -->
+<!-- <section id="google-map-area">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-12">
+        <div class="section-title-header text-center">
+          <h1 class="section-title wow fadeInUp" data-wow-delay="0.2s">REACH US</h1>
+          <p class="wow fadeInDown" data-wow-delay="0.2s">Global Grand Event on Digital Design</p>
+        </div>
+      </div>
+      <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3763.6599913057694!2d72.82654491447336!3d19.383869586912002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7aec0a4b41bef%3A0xbd1a4ca919d6a613!2sVidyavardhini's+College+of+Engineering+and+Technology!5e0!3m2!1sen!2sin!4v1506536306980"
+        width="100%" height="200" frameborder="0" style="border:0" allowfullscreen=""></iframe>
+    </div>
+  </div>
+</section> -->
+<!-- Map Section End -->
+
+<section id="contact-map" class="section-padding">
+  <div class="container">
+    <div class="row">
+      <div class="col-12">
+        <div class="section-title-header text-center">
+          <h1 class="section-title wow fadeInUp" data-wow-delay="0.2s">CONTACT US</h1>
+          <!--<p class="wow fadeInDown" data-wow-delay="0.2s">Global Grand Event on Digital Design</p>-->
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-6 col-xs-12 wow fadeInRight" data-wow-delay="0.3s">
+        <h2 class="contact-title">Lets get in touch!</h2>
+        <p>Feel free to contact us</p>
+        <div class="widget">
+          <ul class="social-list">
+            <li><a class="facebook" href="https://www.facebook.com/VCET-Hackathon-504784249879705" target="_blank"><i
+                  class="lni-facebook-filled"></i></a></li>
+            <li><a class="twitter" href="https://twitter.com/VcetHackathon" target="_blank"><i
+                  class="lni-twitter-filled"></i></a></li>
+            <li><a class="linkedin" href="https://www.linkedin.com/in/vcet-hackathon-038b3316b/" target="_blank"><i
+                  class="lni-linkedin-filled"></i></a></li>
+            <li><a class="instagram" href="https://www.instagram.com/hackathon_vcet/" target="_blank"><i
+                  class="lni-instagram-filled"></i></a></li>
+          </ul>
+          <br>
+          <ul class="contact-info pt50">
+            <li><i class="lni-map-marker"></i>
+              <span>K.T. Marg, Dist-Palghar, Shastri Nagar
+                <br>
+                Vasai West, Maharashtra - 401202
+              </span>
+            </li>
+            <li><i class="lni-phone"></i><span>0250-2338234</span></li>
+            <li><i class="lni-envelope"></i><span><a
+                  href="mailto:vcet.hackathon@vcet.edu.in">vcet.hackathon@vcet.edu.in</a></span>
+            </li>
+            <li><i class="lni-world"></i><span><a href="https://www.vcet.edu.in">www.vcet.edu.in</a></span></li>
+          </ul>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-6 col-xs-12 wow fadeInRight" data-wow-delay="0.3s">
+        <h2 class="contact-title">For Technical Queries</h2>
+        <ul class="list-specification">
+          <div class="contact-content">
+            <b>Tejas Kolwankar</b>
+            <p>+91 95271 05923</p>
+          </div>
+          <div class="contact-content">
+            <b>Jayesh Deorukhkar</b>
+            <p>+91 95030 88957</p>
+          </div>
+          <div class="contact-content">
+            <b>Akshay Hedge</b>
+            <p>+91 77569 44608</p>
+          </div>
+          <br>
+          <h2 class="contact-title">For Other Queries</h2>
+          <ul class="list-specification">
+            <div class="contact-content">
+              <b>Kaustubh Gharat</b>
+              <p>+91 77097 46463</p>
+            </div>
+            <div class="contact-content">
+              <b>Divya Sakre</b>
+              <p>+91 96657 52345</p>
+            </div>
+          </ul>
+      </div>
+    </div>
+  </div>
+</section>
+{%endblock%}
